@@ -1,1 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+@import "reset.scss";
+
+
+.container {
+    width: 1296px;
+    margin: 0 auto;
+}

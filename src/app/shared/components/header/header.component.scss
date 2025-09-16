@@ -1,0 +1,28 @@
+.header {
+    width: 100%;
+    height: 52px;
+    background-color: #1E293B;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     
+}
+.container {
+    display: flex;
+    justify-content: flex-end;
+
+    .header-block {
+        width: 273px;
+        height: 36px;
+        display: flex;
+        justify-content:space-between;
+        align-items: center;
+    }
+
+}
+:host ::ng-deep{
+    .p-button-text{
+        color: #ffffff !important;
+    }
+}
+
