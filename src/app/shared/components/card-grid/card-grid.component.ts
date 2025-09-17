@@ -23,7 +23,7 @@ export class CardGridComponent implements OnInit{
   loadAdverts(): void {
     this.advertService.searchAdverts({}).subscribe({
       next: (response) => {
-        this.adverts = response;
+        this.adverts = response  ;
       }
     })
   }

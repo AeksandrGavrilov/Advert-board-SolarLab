@@ -18,8 +18,6 @@ export interface SearchAdvertsRequest {
   category? : string | null;
 }
 
-export type AdvertListResponse = Advert[];
-
 @Injectable({
   providedIn: 'root'
 })
@@ -30,8 +28,8 @@ export class AdvertService {
   // constructor(private http: HttpClient) {}
   private http = inject(HttpClient)
 
-  searchAdverts(request: SearchAdvertsRequest): Observable<AdvertListResponse> {
-    return this.http.post<AdvertListResponse> (
+  searchAdverts(request: SearchAdvertsRequest): Observable<Advert[]> {
+    return this.http.post<Advert[]> (
       `${this.API_URL}/Advert/search`,
       request
     );
