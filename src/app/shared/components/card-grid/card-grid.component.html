@@ -1,19 +1,7 @@
 <div class="container">
     <div class="card-grid">
         @for (advert of adverts; track advert.id) {
-            <div class="card-grid-advert">
-
-                <div class="card-grid-advert-image">
-                    <img src="https://imgholder.ru/306x240/8493a8/adb9ca&text=IMAGE+HOLDER&font=kelson" alt="">
-                </div>
-
-                <div class="card-grid-advert-info">
-                    <h3>{{advert.name}}</h3>
-                    <p>{{advert.cost}}</p>
-                    <p>{{advert.location}}</p>
-                </div>
-
-            </div>
+         <app-card [advert] = "advert"></app-card>
         }
     </div>
 </div>

@@ -1,12 +1,15 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { AdvertService, Advert } from '../../../../services/advert.service';
+import { Advert } from '../../../interfaces/advert.interface';
+import { AdvertService } from '../../../../services/business-logic/advert.service';
 import { CommonModule } from '@angular/common';
+import { CardComponent } from '../card/card.component';
 
 
 @Component({
   selector: 'app-card-grid',
   imports: [
-    CommonModule
+    CommonModule,
+    CardComponent,
     ],
   templateUrl: './card-grid.component.html',
   styleUrl: './card-grid.component.scss',
@@ -21,7 +24,7 @@ export class CardGridComponent implements OnInit{
   }
 
   loadAdverts(): void {
-    this.advertService.searchAdverts({}).subscribe({
+    this.advertService.searchAdvert({}).subscribe({
       next: (response) => {
         this.adverts = response  ;
       }
