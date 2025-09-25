@@ -1,7 +1,10 @@
 <div class="container">
     <div class="card-grid">
         @for (advert of adverts; track advert.id) {
-         <app-card [advert] = "advert"></app-card>
+         <app-card 
+         [advert] = "advert"
+         [imageUrl]="getImageUrl(advert.id)">
+        </app-card>
         }
     </div>
 </div>

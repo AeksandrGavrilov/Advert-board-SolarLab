@@ -4,9 +4,12 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-
-    &-img {
+}
+.card-img {
         width: 306px;
         height: 240px;
+        img {
+            width: 306px;
+            height: 240px;
+        }
     }
-}
