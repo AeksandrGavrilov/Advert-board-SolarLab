@@ -1,0 +1,30 @@
+<div class="sign-in p-4">
+  <h2 class="sign-in-title text-xl  mb-4">Авторизация</h2>
+  
+  <div class="sign-in-login mb-3">
+    <label class="sign-in-login-tittle block  mb-2">Логин</label>
+    <input 
+      pInputText 
+      [(ngModel)]="credentials.login" 
+      class="w-full" 
+      placeholder="Введите логин" />
+  </div>
+  
+  <div class="sign-in-password mb-4">
+    <label class="sign-in-password-title block  mb-2">Пароль</label>
+    <p-password 
+      [(ngModel)]="credentials.password" 
+      [feedback]="false" 
+      class="w-full" 
+      placeholder="Введите пароль" />
+  </div>
+
+  @if (errorMessage) {
+    <div class="text-red-500  mb-4">{{ errorMessage }}</div>
+  }
+  
+  <div class="sign-in-buttons justify-content-end gap-2">
+    <button pButton label="Отмена" (click)="close()" class="p-button-text"></button>
+    <button pButton label="Войти" (click)="login()" [loading]="loading"></button>
+  </div>
+</div>
