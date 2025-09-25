@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Advert } from '../../app/interfaces/advert.interface';
-import { SearchAdvertsRequest } from '../../app/interfaces/adverts-request.interface';
+import { Advert } from '../../../app/interfaces/advert.interface';
+import { SearchAdvertsRequest } from '../../../app/interfaces/adverts-request.interface';
 
 @Injectable({
   providedIn: 'root'
