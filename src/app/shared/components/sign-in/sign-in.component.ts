@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { AuthService } from '../../../../services/api/auth-service/auth.service';
+import { AuthService } from '../../../services/api/auth-service/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InputText, InputTextModule } from 'primeng/inputtext';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
+import { SignUpComponent } from '../sign-up/sign-up.component';
 
 @Component({
   selector: 'app-sign-in',
@@ -23,6 +24,7 @@ import { ButtonModule } from 'primeng/button';
 export class SignInComponent {
   private authService = inject(AuthService)
   private dialogRef = inject(DynamicDialogRef)
+  private dialogService = inject(DialogService)
 
   credentials ={login: 'Gavrilov', password: '0123456789'};
   loading = false;
@@ -43,6 +45,16 @@ export class SignInComponent {
         console.error('login error:', error)
       }
     });
+  }
+
+  openRegister() {
+    this.dialogRef.close()
+    this.dialogService.open(SignUpComponent, {
+      header: 'Регистрация' ,
+      width: '400px',
+      modal: true,
+      dismissableMask:true
+    })
   }
   
   close () {

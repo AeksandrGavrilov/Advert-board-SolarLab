@@ -24,6 +24,7 @@
   }
   
   <div class="sign-in-buttons justify-content-end gap-2">
+    <p-button label="Регистрация" (click)="openRegister()" class="p-button-text"></p-button>
     <button pButton label="Отмена" (click)="close()" class="p-button-text"></button>
     <button pButton label="Войти" (click)="login()" [loading]="loading"></button>
   </div>

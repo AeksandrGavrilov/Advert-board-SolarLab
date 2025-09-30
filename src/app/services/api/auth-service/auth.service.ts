@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserInterface,} from '../../../app/interfaces/user.interface';
-import { AuthificationDataInterface } from '../../../app/interfaces/authification-data.interface';
+import { UserInterface } from '../../../interfaces/user.interface';
+import { AuthificationDataInterface } from '../../../interfaces/authification-data.interface';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { RegisterNewUserInterface } from '../../../app/interfaces/register-new-user.interface';
+import { RegisterNewUserInterface } from '../../../interfaces/register-new-user.interface';
 
 
 @Injectable({

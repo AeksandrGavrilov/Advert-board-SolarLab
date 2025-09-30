@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ButtonGroupModule } from 'primeng/buttongroup';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { AuthService } from '../../../../services/api/auth-service/auth.service';
+import { AuthService } from '../../../services/api/auth-service/auth.service';
 import { MenuItem } from 'primeng/api';
 import { SignInComponent } from '../sign-in/sign-in.component';
 import { RouterLink } from "@angular/router";

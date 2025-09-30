@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Advert } from '../../../interfaces/advert.interface';
-import { AdvertService } from '../../../../services/business-logic/advert/advert.service';
+import { AdvertService } from '../../../services/business-logic/advert/advert.service';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from '../card/card.component';
-import { ImageService } from '../../../../services/business-logic/img/image.service';
+import { ImageService } from '../../../services/business-logic/img/image.service';
 
 @Component({
   selector: 'app-card-grid',
