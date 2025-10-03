@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { SearchMenuComponent } from "./shared/components/search-menu/search-menu.component";
-
+import { ToastModule } from 'primeng/toast';
 import { NgForOf } from "../../node_modules/@angular/common/common_module.d-NEF7UaHr";
 import { CardGridComponent } from './shared/components/card-grid/card-grid.component';
 
@@ -14,6 +14,7 @@ import { CardGridComponent } from './shared/components/card-grid/card-grid.compo
     HeaderComponent,
     SearchMenuComponent,
     CardGridComponent,
+    ToastModule
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
