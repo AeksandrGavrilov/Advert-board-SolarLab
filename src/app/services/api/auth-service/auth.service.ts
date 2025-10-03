@@ -5,13 +5,14 @@ import { UserInterface } from '../../../interfaces/user.interface';
 import { AuthificationDataInterface } from '../../../interfaces/authification-data.interface';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { RegisterNewUserInterface } from '../../../interfaces/register-new-user.interface';
+import { environment } from '../../../environmets/environmets';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URL = "http://dzitskiy.ru:5000";
+  private readonly API_URL = environment.API_URL;
   private http  = inject(HttpClient);
   private router = inject(Router)
 
@@ -79,14 +80,6 @@ export class AuthService {
 
   public getCurrentUser(): UserInterface | null {
     return this.currentUserSubject.value
-    // const login = localStorage.getItem('userLogin');
-    // if(!login) return null;
-
-    // return {
-    //   id: login,
-    //   name:login,
-    //   login: login
-    // }
   }
 
   private checkToken(): boolean {
