@@ -7,6 +7,7 @@ import { PasswordModule } from 'primeng/password';
 import { AuthService } from '../../../services/api/auth-service/auth.service';
 import { RegisterNewUserInterface } from '../../../interfaces/register-new-user.interface';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-sign-up',
@@ -23,7 +24,8 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class SignUpComponent {
   private authService = inject(AuthService);
-  private dialogRef = inject(DynamicDialogRef)
+  private dialogRef = inject(DynamicDialogRef);
+  private messageToastService = inject(MessageService)
 
   registerData: RegisterNewUserInterface = {
     name: '',
@@ -51,6 +53,11 @@ export class SignUpComponent {
       this.authService.register(this.registerData).subscribe({
         next: (userId) =>{
           this.loading = false;
+          this.messageToastService.add({
+            severity: "succes",
+            summary: "Успех!",
+            detail: "Регистрация успешна!"
+          })
           this.dialogRef.close(true);
         },
         error: (error) => {

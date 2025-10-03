@@ -7,6 +7,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { SignUpComponent } from '../sign-up/sign-up.component';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-sign-in',
@@ -25,6 +26,7 @@ export class SignInComponent {
   private authService = inject(AuthService)
   private dialogRef = inject(DynamicDialogRef)
   private dialogService = inject(DialogService)
+  private messageToastService = inject(MessageService)
 
   credentials ={login: 'Gavrilov', password: '0123456789'};
   loading = false;
@@ -37,6 +39,11 @@ export class SignInComponent {
     this.authService.login(this.credentials).subscribe({
       next :() => {
         this.loading = false;
+        this.messageToastService.add({
+          severity: "success",
+          summary: "Успешно!",
+          detail: "Авторизация прошла успешно!"
+        })
         this.dialogRef.close(true);
       },
       error: (error) =>{
