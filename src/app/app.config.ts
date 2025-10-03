@@ -7,17 +7,17 @@ import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { DialogService } from 'primeng/dynamicdialog'
 import { DialogModule } from 'primeng/dialog';
+import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideRouter(routes),
     provideHttpClient(),
     provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideRouter(routes),
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
     provideAnimationsAsync(),
     DialogService,
     importProvidersFrom(DialogModule),
+    MessageService,
     providePrimeNG({
       theme: {
         preset: Aura

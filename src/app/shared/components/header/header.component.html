@@ -1,19 +1,13 @@
 <div class="header">
     <div class="container">
         <div class="header-block">
-            <div class="logo">
-                <a routerLink="/">
-                    <span>Доска объявлений</span>
-                </a>
-            </div>
-
             @if (!(authService.isAuthenticated$ | async)) {
                 <p-button label="Вход" (click)="showSignIn()"></p-button>
             } @else {
                 <div class="flex align-items-center gap-3">
                     <p-menu #menu [model]="userMenuItems" [popup]="true"></p-menu>
                     <button pButton (click)="menu.toggle($event)" [label]="currentUserName"></button>
-                    <button pButton icon="pi pi-plus" label="Новое объявление"></button>
+                    <button  pButton icon="pi pi-plus" label="Новое объявление" routerLink="/adverts/create" ></button>
                 </div>
             }
         </div>

@@ -33,7 +33,21 @@ export class HeaderComponent implements OnInit {
   ref: DynamicDialogRef | undefined;
 
   userMenuItems: MenuItem[] = [
-    {label:'Выход', icon: 'pi pi-sign-out', command: () => this.logout()}
+    {
+      label: 'Личый кабинет',
+      icon: 'pi pi-user',
+      routerLink: '/profile'
+    },
+    {
+      label:'Мои объявления',
+      icon: 'pi-pilist',
+      routerLink: '/my-adverts'
+    },
+    {
+      label:'Выход',
+       icon: 'pi pi-sign-out', 
+       command: () => this.logout()
+    }
   ];
 customButtonLoginToken: Object|undefined;
   ngOnInit() {
