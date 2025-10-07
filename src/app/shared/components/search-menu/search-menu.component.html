@@ -1,17 +1,40 @@
 <div class="search-menu">
     <div class="container">
-
-    <div class="search-menu-logo">
-        <a routerLink="/">
-            <span class="logo_black">Доска объявлений</span>
-        </a>
-    </div>
-        <p-button icon="pi pi-bars" label="Все категории"></p-button>
+        <div class="search-menu-logo">
+            <a routerLink="/">
+                <span class="logo_black">Доска объявлений</span>
+            </a>
+        </div>
+        
+        @if(!loading) {
+           
+            <div class="menu-container">
+                <button 
+                    type="button" 
+                    pButton 
+                    icon="pi pi-bars" 
+                    label="Все категории"
+                    (click)="menu.toggle($event)">
+                </button>
+                
+                <p-tieredmenu 
+                    #menu
+                    [model]="menuItems"
+                    [popup]="true"
+                    styleClass="custom-tieredmenu">
+                    appendTo = "body"
+                </p-tieredmenu>
+            </div>
+        } @else {
+            <div class="loading-placeholder">
+                <i class="pi pi-spin pi-spinner" style="margin-right: 0.5rem"></i>
+                Загрузка категорий...
+            </div>
+        }
 
         <div class="search-menu-block">
             <input type="text" pInputText placeholder="Поиск по объявлениям" class="search-menu-block-input"/>
             <p-button icon="pi pi-search" label="Найти" class="search-menu-block-button"></p-button>
         </div>
-
     </div>
 </div>
