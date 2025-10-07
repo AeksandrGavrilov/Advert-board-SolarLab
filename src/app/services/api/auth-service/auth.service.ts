@@ -22,19 +22,29 @@ export class AuthService {
   public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  public login(authData: AuthificationDataInterface): Observable<string> {
+  public login(authData: AuthificationDataInterface): Observable<string> {  
     return this.http.post<string>(
       `${this.API_URL}/Auth/Login`,
       authData,
       {responseType: "text" as "json"}
     ).pipe(
-      tap(token => {
-        localStorage.setItem('authToken', token);
+      tap((token: string) => {
+        const cleanToken = token.startsWith('"') && token.endsWith('"') 
+            ? token.slice(1, -1) 
+            : token;
+    
+        localStorage.setItem('authToken', cleanToken)
+
+        console.log('Получен токен от сервера:', token)
+        // localStorage.setItem('authToken', token);
         localStorage.setItem('userLogin', authData.login);
+
+        const savedToken = localStorage.getItem('authToken');
+        console.log('токен сохранен в local storage, save token =',savedToken);
 
         this.isAuthenticatedSubject.next(true);
         this.currentUserSubject.next({
-          id:authData.login,
+          id: authData.login,
           name: authData.login,
           login: authData.login
         })
