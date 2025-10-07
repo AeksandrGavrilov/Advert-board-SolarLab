@@ -4,15 +4,18 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { DialogService } from 'primeng/dynamicdialog'
 import { DialogModule } from 'primeng/dialog';
 import { MessageService } from 'primeng/api';
+import { authInterceptor } from './interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([authInterceptor])
+    ),
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideAnimationsAsync(),
     DialogService,
