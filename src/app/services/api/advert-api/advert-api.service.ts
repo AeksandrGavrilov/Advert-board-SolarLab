@@ -19,4 +19,10 @@ export class AdvertApiService {
       request
     )
   }
+  createAdvert(advertFormData: FormData): Observable<any> {
+    return this.http.post<any>(
+      `${this.API_URL}/Advert`,
+      advertFormData
+  );
+  }
 }
