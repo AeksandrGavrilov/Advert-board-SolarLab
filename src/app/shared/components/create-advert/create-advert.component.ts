@@ -6,7 +6,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
+import { SelectModule, Select } from 'primeng/select';
 import { AdvertApiService } from '../../../services/api/advert-api/advert-api.service';
+import { CategoryInterface } from '../../../interfaces/category.interface';
+import { CategoryService } from '../../../services/api/category/category.service';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-create-advert',
@@ -16,7 +20,8 @@ import { AdvertApiService } from '../../../services/api/advert-api/advert-api.se
     InputTextModule,
     InputNumberModule,
     ButtonModule,
-  ],
+    Select
+],
   templateUrl: './create-advert.component.html',
   styleUrl: './create-advert.component.scss',
   standalone: true,
@@ -25,8 +30,12 @@ export class CreateAdvertComponent {
   private formBuilder = inject(FormBuilder);
   private advertApiService = inject(AdvertApiService);
   private messageService = inject(MessageService);
+  private categoryService = inject(CategoryService);
+  
 
   createAdvertForm: FormGroup;
+  categories: CategoryInterface[] = [];
+  loadingCategories = false;
 
   constructor() {
     this.createAdvertForm = this.formBuilder.group({
@@ -34,24 +43,49 @@ export class CreateAdvertComponent {
         Cost: [null, [Validators.required, Validators.min(0)]],
         Phone: ['', [Validators.required]],
         Location: ['', [Validators.required]],
-        CategoryId: ['', [Validators.required]]
+        CategoryId: ['', [Validators.required, Validators.min(4)]]
     });
   };
 
+  ngOnInit() {
+    this.loadCategories()
+  };
+
+  loadCategories() {
+    this.loadingCategories = true;
+
+    this.categoryService.getAllCategories().pipe(
+        tap((categories) => {
+            this.categories = categories;
+            console.log('Категории загружены', categories)
+        }),
+        catchError((error) => {
+            console.error('Ошибка загрузки категорий',error);
+            this.messageService.add({
+                severity:'error',
+                summary: 'Ошибка!',
+                detail: 'Ошибка загрузки категорий'
+            });
+            return of([]);
+        }),
+        tap(() => {
+            this.loadingCategories = false;
+        })
+    ).subscribe();
+  }
+  
   onSubmit() {
-    console.log('=======onSubmit начинает работу======')
-    console.log('onSubmit вызван, форма валидна:', this.createAdvertForm.valid);
-    console.log('Значения формы:',this.createAdvertForm.value );
+   
+    console.log('Отправка формы создания объявления');
 
     const currentToken = localStorage.getItem('authToken');
-    console.log('Токен в local storage:', currentToken);
-    console.log('Длина токена - ', currentToken?.length)
+    console.log('Токен в local storage:', currentToken ? 'присутствует': 'отсутсвует');
+    
+    console.log('Все значения формы:', this.createAdvertForm.value);
+    console.log('Тип Cost:', typeof this.createAdvertForm.get('Cost')?.value);
 
     if (this.createAdvertForm.valid) {
-        // const formData = new FormData();
-        const formData = this.createAdvertForm.value;
-        console.log('Собираем FormData из значений формы:', formData);
-
+      
         const requestFormData = new FormData();
 
         requestFormData.append('Name', this.createAdvertForm.get('Name')?.value);
@@ -60,60 +94,41 @@ export class CreateAdvertComponent {
         requestFormData.append('Location', this.createAdvertForm.get('Location')?.value);
         requestFormData.append('CategoryId', this.createAdvertForm.get('CategoryId')?.value);
 
-        console.log('FormData - содержимое:');
-        for( let [key,value] of requestFormData.entries()) {
-            console.log(` ${key}:`,value)
-        }
+        const selectedCategoryId = this.createAdvertForm.get('CategoryId')?.value;
+        console.log('Выбранный ID категории:', selectedCategoryId);
+        console.log('Тип выбранного ID:', typeof selectedCategoryId);
+        console.log('Длина ID:', selectedCategoryId?.length);
         
-        console.log('Вызываем advertApiService.createAdvert...');
+        requestFormData.append('CategoryId', selectedCategoryId);
+     
+        console.log('Данные формы заполнены, отправка на бэк...');
 
-        this.advertApiService.createAdvert(requestFormData).subscribe({
-            next: (response) =>{
-                console.log('========успех=======');
-                console.log('Ответ от сервера:', response);
-
+        this.advertApiService.createAdvert(requestFormData).pipe(
+            tap((response) => {
+                console.log('Объявление создано успешно', response);
                 this.messageService.add({
-                    severity:'success',
-                    summary: 'Успешно!',
+                    severity: 'success',
+                    summary: 'Успех!',
                     detail: 'Объявление создано'
                 });
                 this.createAdvertForm.reset();
-                console.log('Форма была сброшена после успешного создания объявления. Ура!')
-            },
-            error: (error) => {
-                console.log('========ОШИБКА!!!!========')
-                console.error('Полная ошибка', error);
-                console.error('Статус ошибки', error.status);
-                console.error('Текст ошибки', error.statusText);
-                console.error('URL запроса', error.url)
-                console.error('Заголовки ответа', error.headers)
+            }),
+            catchError((error) => {
+                console.error('Ошибка при создании объявления:', error);
                 this.messageService.add({
                     severity:'error',
                     summary:'Ошибка!',
-                    detail: 'Не удалось создать объявление'
+                    detail:'Ошибка при создании объявления'
                 });
-            },
-            complete: () => {
-                console.log('====завершение====')
-                console.log('Observable завершен')
-            }
-        });
-    } else {
-        console.log('=====ФОРМА НЕВАЛИДНА=====');
-        console.log('Состояние контролов');
+                return of (null);
+            })
+        ).subscribe();
+        }else {
+            console.log('Форма не валидна, проверьте заполнение обязательных полей');
 
-        Object.keys(this.createAdvertForm.controls).forEach( key => {
-            
-            const control = this.createAdvertForm.get(key);
-            console.log(`  ${key}:`, {
-                valid: control?.valid,
-                invalid: control?.invalid,
-                errors: control?.errors,
-                value: control?.value
+            Object.keys(this.createAdvertForm.controls).forEach(key => {
+                this.createAdvertForm.get(key)?.markAsTouched()
             });
-            control?.markAsTouched()
-        });
+        }
     }
-     console.log('=== КОНЕЦ onSubmit ===');
-  }
 }

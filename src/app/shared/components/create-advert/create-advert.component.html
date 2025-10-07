@@ -9,7 +9,7 @@
             formControlName="Name"
             placeholder="Введите название объявления">
             <small *ngIf="createAdvertForm.get('Name')?.touched && createAdvertForm.get('Name')?.invalid">
-                название обязательно
+                название обязательно и должно содержать не менее четырех символов
             </small>
         </div>
 
@@ -53,11 +53,14 @@
 
         <div class="create-advert-category">
             <label for="CategoryId">Категория*</label>
-            <input 
-            pInputText
-            id="CategoryId"
-            formControlName="CategoryId"
-            placeholder="Введите категорию">
+            <p-select 
+                id="CategoryId"
+                formControlName="CategoryId"
+                [options]="categories"
+                optionLabel="name"
+                optionValue="id"
+                placeholder="Выберите категорию">
+            </p-select>
             <small *ngIf="createAdvertForm.get('CategoryId')?.touched && createAdvertForm.get('CategoryId')?.invalid">
                 обязательное поле
             </small>
