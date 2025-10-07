@@ -1,1 +1,75 @@
-<p>Здесь будет компонент-форма создания объявления</p>
+<div class="creat-advert">
+    <form [formGroup]="createAdvertForm" (ngSubmit)="onSubmit()">
+
+        <div class="create-advert-label">
+            <label for="Name">Навзание объявления*</label>
+            <input 
+            pInputText
+            id="Name"
+            formControlName="Name"
+            placeholder="Введите название объявления">
+            <small *ngIf="createAdvertForm.get('Name')?.touched && createAdvertForm.get('Name')?.invalid">
+                название обязательно
+            </small>
+        </div>
+
+        <div class="create-advert-cost">
+            <label for="Cost"> Цена*</label>
+            <p-inputNumber 
+                id="Cost"
+                formControlName="Cost"
+                mode="currency"
+                currency="RUB"
+                locale="ru-RU">
+            </p-inputNumber>
+            <small *ngIf="createAdvertForm.get('Cost')?.touched && createAdvertForm.get('Cost')?.invalid">
+                Обязательное поле, цена должна быть положительной
+            </small>
+        </div>
+
+        <div class="create-advert-phone">
+            <label for="Phone">Телефон*</label>
+            <input 
+                pInputText
+                id="Phone"
+                formControlName="Phone"
+                placeholder="Введите телефон">
+            <small *ngIf="createAdvertForm.get('Phone')?.touched && createAdvertForm.get('Phone')?.invalid">
+                Телефон обязателен
+            </small>
+        </div>
+
+        <div class="create-advert-location">
+            <label for="Location">Адрес*</label>
+            <input
+            pInputText
+            id="Location"
+            formControlName="Location"
+            placeholder="Введите адрес">
+            <small *ngIf="createAdvertForm.get('Location')?.touched && createAdvertForm.get('Location')?.invalid">
+                Обязательное поле
+            </small>
+        </div>
+
+        <div class="create-advert-category">
+            <label for="CategoryId">Категория*</label>
+            <input 
+            pInputText
+            id="CategoryId"
+            formControlName="CategoryId"
+            placeholder="Введите категорию">
+            <small *ngIf="createAdvertForm.get('CategoryId')?.touched && createAdvertForm.get('CategoryId')?.invalid">
+                обязательное поле
+            </small>
+        </div>
+
+        <div class="create-advert-buttons">
+            <button
+            pButton
+            type="submit"
+            label="Создать объявление"
+            class="p-button-primary"
+            [disabled]="!createAdvertForm.valid"></button>
+        </div>
+    </form>
+</div>
