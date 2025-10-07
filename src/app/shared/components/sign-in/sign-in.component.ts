@@ -3,7 +3,7 @@ import { AuthService } from '../../../services/api/auth-service/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InputText, InputTextModule } from 'primeng/inputtext';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { SignUpComponent } from '../sign-up/sign-up.component';
@@ -27,11 +27,18 @@ export class SignInComponent {
   private dialogRef = inject(DynamicDialogRef)
   private dialogService = inject(DialogService)
   private messageToastService = inject(MessageService)
+  private dialogConfig = inject(DynamicDialogConfig)
 
   credentials ={login: 'Gavrilov', password: '0123456789'};
   loading = false;
   errorMessage = '';
 
+  ngOnInit(){
+    const redirectUrl = this.dialogConfig.data?.redirectUrl;
+    if (redirectUrl) {
+      console.log('URL для редиректа', redirectUrl)
+    }
+  }
   login(){
     this.loading = true;
     this.errorMessage = '';
@@ -44,7 +51,14 @@ export class SignInComponent {
           summary: "Успешно!",
           detail: "Авторизация прошла успешно!"
         })
-        this.dialogRef.close(true);
+         console.log('Закрываю диалог с данными:', {
+          success: true,
+          redirectUrl: this.dialogConfig.data?.redirectUrl
+        });
+        this.dialogRef.close({
+          success: true,
+          redirectUrl: this.dialogConfig.data?.redirectUrl
+        });
       },
       error: (error) =>{
         this.loading = false;
@@ -65,7 +79,7 @@ export class SignInComponent {
   }
   
   close () {
-    this.dialogRef.close(false)
+    this.dialogRef.close({success: false})
   }
 }
 
