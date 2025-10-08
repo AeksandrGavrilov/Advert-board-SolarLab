@@ -36,7 +36,7 @@ export class AuthService {
         localStorage.setItem('authToken', cleanToken)
 
         console.log('Получен токен от сервера:', token)
-        // localStorage.setItem('authToken', token);
+        
         localStorage.setItem('userLogin', authData.login);
 
         const savedToken = localStorage.getItem('authToken');

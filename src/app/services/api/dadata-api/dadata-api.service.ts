@@ -26,17 +26,10 @@ export class DadataApiService {
     count: 10
   };
 
-  console.log('🟡 Отправляемый запрос к DaData:');
-  console.log('URL:', this.API_URL);
-  console.log('Headers:', headers);
-  console.log('Body:', body);
-
   return this.http.post<DadataResponseInterface>(this.API_URL, body, {headers}).pipe(
     tap(response => console.log('Получен ответ от Dadata', response)),
     catchError( error => {
-      console.error('❌ Ошибка от DaData:', error);
-      console.error('❌ Текст ошибки:', error.message);
-      console.error('❌ Полный объект ошибки:', error);
+      console.error(' Ошибка от DaData:', error);
       return throwError(() => error)
     }),  
     map(response =>response.suggestions)
