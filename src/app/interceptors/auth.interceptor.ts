@@ -2,19 +2,19 @@ import { HttpInterceptorFn } from '@angular/common/http';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
-  const  authToken = localStorage.getItem('authToken') || '';
+  
+  const backendUrl = 'http://dzitskiy.ru:5000'
 
-  console.log(' Interceptor: Токен существует?', !!authToken);
-  console.log(' Interceptor: Длина токена', authToken.length);
+  if (req.url.startsWith(backendUrl)) {
+    const  authToken = localStorage.getItem('authToken') || '';
+    
+    console.log('Interceptor: Добавляем токен для бэкенда');
 
-  console.log('Токен из Local Storage:',authToken)
-  console.log('URL запроса:', req.url)
-
-  const authReq = req.clone({
+    const authReq = req.clone({
     headers: req.headers.set('Authorization', `Bearer ${authToken}`)
   });
 
-  console.log(' Interceptor: Заголовки запроса', authReq.headers.keys());
-  
   return next(authReq);
+  }
+  return next(req);
 };
