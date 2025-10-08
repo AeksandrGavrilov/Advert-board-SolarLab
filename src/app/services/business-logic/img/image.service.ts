@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { environment } from '../../../environmets/environmets';
 
 
@@ -13,12 +13,30 @@ export class ImageService {
 
  getImgUrlById(imageId: string): string {
   return `${this.API_URL}/Images/${imageId}`
- }
+ };
 
  getImgById(imageId: string): Observable<Blob> {
   return this.http.get(
     `${this.API_URL}/Images/${imageId}` ,
     {responseType: "blob"}
   )
+ };
+
+ uploadImage(advertId: string, imageFile: File): Observable<any> {
+  const formData = new FormData();
+  formData.append('AdvertId', advertId);
+  formData.append('Content', imageFile, imageFile.name);
+
+  return this.http.post<any>(
+    `${this.API_URL}/Images`,
+    formData
+  );
+ };
+
+ uploadSomeImages(advertId:string, imageFiles: File[]): Observable<any> {
+  const uploadRequests = imageFiles.map(file =>
+    this.uploadImage(advertId, file)
+  );
+  return forkJoin(uploadRequests)
  }
 }
