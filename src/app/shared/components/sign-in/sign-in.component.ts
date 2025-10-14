@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AuthService } from '../../../services/api/auth-service/auth.service';
+import { AuthLogicService } from '../../../services/business-logic/auth-logic/auth-logic.service'; 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InputText, InputTextModule } from 'primeng/inputtext';
@@ -8,6 +8,7 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { SignUpComponent } from '../sign-up/sign-up.component';
 import { MessageService } from 'primeng/api';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-sign-in',
@@ -23,7 +24,7 @@ import { MessageService } from 'primeng/api';
   standalone: true,
 })
 export class SignInComponent {
-  private authService = inject(AuthService)
+  private authService = inject(AuthLogicService)
   private dialogRef = inject(DynamicDialogRef)
   private dialogService = inject(DialogService)
   private messageToastService = inject(MessageService)
@@ -43,30 +44,26 @@ export class SignInComponent {
     this.loading = true;
     this.errorMessage = '';
 
-    this.authService.login(this.credentials).subscribe({
-      next :() => {
+    this.authService.login(this.credentials).pipe(
+      tap(() => {
         this.loading = false;
         this.messageToastService.add({
-          severity: "success",
-          summary: "Успешно!",
-          detail: "Авторизация прошла успешно!"
-        })
-         console.log('Закрываю диалог с данными:', {
-          success: true,
-          redirectUrl: this.dialogConfig.data?.redirectUrl
+           severity: "success",
+           summary: "Успешно!",
+           detail: "Авторизация прошла успешно!"
         });
-        this.dialogRef.close({
-          success: true,
-          redirectUrl: this.dialogConfig.data?.redirectUrl
-        });
-      },
-      error: (error) =>{
-        this.loading = false;
-        this.errorMessage = 'Ошибка авторизации' ;
-        console.error('login error:', error)
-      }
-    });
-  }
+          this.dialogRef.close({
+            success: true,
+            redirectUrl: this.dialogConfig.data?.redirectUrl
+          });
+          catchError( (error) => {
+            this.loading = false;
+            this.errorMessage = 'Ошибка авторизации!';
+            return of(null)
+          })
+      })
+    ).subscribe()
+  };
 
   openRegister() {
     this.dialogRef.close()

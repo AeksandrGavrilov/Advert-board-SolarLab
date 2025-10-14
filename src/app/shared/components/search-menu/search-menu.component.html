@@ -33,8 +33,18 @@
         }
 
         <div class="search-menu-block">
-            <input type="text" pInputText placeholder="Поиск по объявлениям" class="search-menu-block-input"/>
-            <p-button icon="pi pi-search" label="Найти" class="search-menu-block-button"></p-button>
+            <input
+            type="text"
+            pInputText
+            placeholder="Поиск по объявлениям"
+            class="search-menu-block-input"
+            [(ngModel)]="searchText"
+            (keyup.enter)="onTextSearch()"/>
+            <p-button
+            icon="pi pi-search"
+            label="Найти"
+            class="search-menu-block-button"
+            (click)="onTextSearch()"></p-button>
         </div>
     </div>
 </div>

@@ -1,0 +1,26 @@
+<div class="user-profile-page">
+  <div class="container">
+    <h1>Профиль пользователя</h1>
+    
+    @if (currentUser) {
+      <div class="profile-info">
+        <div class="profile-header">
+          <h2>{{ currentUser.name }}</h2>
+          <div class="user-details">
+            <p><strong>Логин:</strong> {{ currentUser.login }}</p>
+            <p><strong>Роль:</strong> {{ currentUser.role }}</p>
+            <p><strong>Зарегистрирован:</strong> {{ currentUser.registeredTime | transformDatePipe }}</p>
+          </div>
+        </div>
+        
+        <div class="user-adverts">
+          <h3>Мои объявления ({{ currentUser.adverts.length }})</h3>
+          <app-card-grid 
+            [adverts]="currentUser.adverts"
+            [imageUrls]="imageUrls">
+          </app-card-grid>
+        </div>
+      </div>
+    }
+  </div>
+</div>

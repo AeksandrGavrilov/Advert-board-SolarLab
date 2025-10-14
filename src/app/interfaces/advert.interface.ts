@@ -1,4 +1,4 @@
-export interface Advert {
+export interface AdvertInterface {
   id: string;
   name : string;
   location : string;

@@ -1,10 +1,10 @@
 <div class="card" [routerLink]="['/adverts', advert.id]">
     <div class="card-img">
-        <img [src]="imageUrl" alt="{{advert.name}}">
+        <img [src]="imageUrl | imagePipe" alt="{{advert.name}}">
     </div>
     <div class="card-name">{{advert.name}}</div>
     <div class="card-cost">{{advert.cost}} руб</div>
     <div class="card-city">{{advert.location}}</div>
-    <div class="card-time">{{advert.createdAt}}</div>
+    <div class="card-time">{{advert.createdAt | transformDatePipe}}</div>
 
 </div>

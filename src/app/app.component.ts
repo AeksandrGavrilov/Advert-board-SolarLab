@@ -3,8 +3,9 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { SearchMenuComponent } from "./shared/components/search-menu/search-menu.component";
 import { ToastModule } from 'primeng/toast';
-import { NgForOf } from "../../node_modules/@angular/common/common_module.d-NEF7UaHr";
-import { CardGridComponent } from './shared/components/card-grid/card-grid.component';
+import { BreadcrumpsComponent } from './shared/components/breadcrump/breadcrump/breadcrump.component';
+
+
 
 
 @Component({
@@ -13,8 +14,8 @@ import { CardGridComponent } from './shared/components/card-grid/card-grid.compo
     RouterOutlet,
     HeaderComponent,
     SearchMenuComponent,
-    CardGridComponent,
-    ToastModule
+    ToastModule,
+    BreadcrumpsComponent
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

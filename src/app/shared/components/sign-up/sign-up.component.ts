@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { Button, ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { AuthService } from '../../../services/api/auth-service/auth.service';
+import { AuthLogicService } from '../../../services/business-logic/auth-logic/auth-logic.service'; 
 import { RegisterNewUserInterface } from '../../../interfaces/register-new-user.interface';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
@@ -23,7 +24,7 @@ import { MessageService } from 'primeng/api';
   standalone: true,
 })
 export class SignUpComponent {
-  private authService = inject(AuthService);
+  private authService = inject(AuthLogicService);
   private dialogRef = inject(DynamicDialogRef);
   private messageToastService = inject(MessageService)
 
@@ -50,26 +51,27 @@ export class SignUpComponent {
       this.loading = true;
       this.errorMessage = '';
 
-      this.authService.register(this.registerData).subscribe({
-        next: (userId) =>{
+      this.authService.register(this.registerData).pipe(
+        tap((userId) => {
           this.loading = false;
           this.messageToastService.add({
-            severity: "succes",
-            summary: "Успех!",
-            detail: "Регистрация успешна!"
-          })
+            severity: 'seccess',
+            summary: 'Успех!',
+            detail: 'Регистрация успешна!'
+          });
           this.dialogRef.close(true);
-        },
-        error: (error) => {
-          this.loading =false;
+        }),
+        catchError( (error) =>{
+          this.loading = false;
           if(error.status === 400) {
-            this.errorMessage ='Проверьте правильность данных.';
+            this.errorMessage = 'Проверьте правильность данных';
           } else {
-            this.errorMessage ='неизвестная ошибка'
+            this.errorMessage = 'неизветсная ошибка'
           }
-        }
-      });
-    }
+          return of(null)
+        })
+        ).subscribe()
+      }
 
     close() {
       this.dialogRef.close(false)

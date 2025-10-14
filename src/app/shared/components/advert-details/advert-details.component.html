@@ -1,1 +1,64 @@
-<p>Здесь будет страница товара: Информация, фото, координаты продавца</p>
+<div class="advert-deitails">
+    <div class="container">
+        <div class="advert-details-label">
+            <h2> {{advert?.name}}</h2>
+            <h2 class="price"> {{advert?.cost}} руб.</h2>
+        </div>
+
+        <div class="advert-details-gallery">
+            <p-galleria
+            [value]="images"
+            [numVisible]="3"
+            [circular]="true"
+            [showItemNavigators]="true"
+            [showThumbnails]="images.length > 1"
+            [containerStyle]="{'max-width': '100%' }">
+        
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item | imagePipe"
+                 [alt]="advert?.name"
+                  class="image" />
+            </ng-template>
+
+            <ng-template pTemplate="thumbnail" let-item>
+                <img
+                 [src]="item | imagePipe"
+                 [alt]="advert?.name" 
+                 class="thumbnail-image" />
+            </ng-template>
+        </p-galleria>
+        </div>
+
+        <div class="advert-details-section">
+            <div class="advert-details-info-description">
+                <h3>Описание</h3>
+                <p>{{advert?.description || 'описание отсутствует'}}</p>
+                <h3>Объявление создано</h3>
+                <p>{{advert?.created | transformDatePipe }}</p>
+            </div>
+        </div>
+
+        <div class="advert-details-section">
+            <h3>Адрес</h3>
+            <p>{{advert?.location}}</p>
+        </div>
+
+        <div class="advert-details-section">
+            <h3>Контакты</h3>
+            <div *ngIf="showPhone; else phoneButton">
+                <p class="phone">{{advert?.phone}}</p>
+            </div>
+            <ng-template #phoneButton>
+                <button
+                pButton
+                *ngIf="isAuthenticated"
+                label="Показать телефон"
+                (click)="togglePhone()"
+                severity="primary">
+                </button>
+                <p *ngIf="!isAuthenticated">Чтобы увидеть телефон, необходимо авторизироваться</p>
+            </ng-template>
+        </div>
+        <div *ngIf="!advert" class="loading">Загрузка...</div>    
+    </div>
+</div>

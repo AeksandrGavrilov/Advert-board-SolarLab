@@ -7,9 +7,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   if (req.url.startsWith(backendUrl)) {
     const  authToken = localStorage.getItem('authToken') || '';
-    
-    console.log('Interceptor: Добавляем токен для бэкенда');
-
     const authReq = req.clone({
     headers: req.headers.set('Authorization', `Bearer ${authToken}`)
   });

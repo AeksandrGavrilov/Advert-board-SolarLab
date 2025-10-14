@@ -2,13 +2,14 @@
     <form [formGroup]="createAdvertForm" (ngSubmit)="onSubmit()">
 
         <div class="create-advert-label">
-            <label for="Name">Навзание объявления*</label>
+            <label for="Name">Название объявления*</label>
             <input 
             pInputText
             id="Name"
             formControlName="Name"
             placeholder="Введите название объявления">
-            <small *ngIf="createAdvertForm.get('Name')?.touched && createAdvertForm.get('Name')?.invalid">
+
+            <small *ngIf="(createAdvertForm.get('Name')?.touched || createAdvertForm.get('Name')?.dirty)  &&  createAdvertForm.get('Name')?.invalid">
                 название обязательно и должно содержать не менее четырех символов
             </small>
         </div>
@@ -57,50 +58,70 @@
         </div>
 
         <div class="create-advert-category">
-            <label for="CategoryId">Категория*</label>
-            <p-select 
-                id="CategoryId"
-                formControlName="CategoryId"
-                [options]="categories"
-                optionLabel="name"
-                optionValue="id"
-                placeholder="Выберите категорию">
-            </p-select>
+          <label for="CategoryId">Категория*</label>
+            <div class="create-advert-category-block">
+                <button 
+                    type="button" 
+                    pButton 
+                    icon="pi pi-list"
+                    [label]="selectedCategoryName"
+                    (click)="categoryMenu.toggle($event)"
+                    class="create-advert-category-block-button">
+                </button>
+                
+                <p-tieredmenu 
+                    #categoryMenu
+                    [model]="menuItems"
+                    [popup]="true"
+                    styleClass="category-tieredmenu">
+                </p-tieredmenu>
+
+                <input type="hidden" formControlName="CategoryId">
+            </div>
             <small *ngIf="createAdvertForm.get('CategoryId')?.touched && createAdvertForm.get('CategoryId')?.invalid">
-                обязательное поле
+                Необходимо выбрать категорию
             </small>
         </div>
 
-        <div class="create-advert-images">
-            <label for="images">Изображения для объявления</label>
+        <div class="advert-category-image">
+            <label for="Image"> Изображение объявления</label>
             <input
-            type="file"
-            id="images"
-            (change)="onFileSelected($event)"
-            multiple
-            accept="image/*">
+             type="file"
+             id="Image"
+             (change)="onFileSelected($event)"
+             accept="image/*"
+             multiple>
 
-            <div class="images-list" *ngIf="selectedFiles.length >0">
-                <h4>
-                    выбрано файлов : {{ selectedFiles.length}}{{selectedFiles.length >= maxFiles ?'(максимум)': ''}}
-                </h4>
-                <div *ngFor="let file of selectedFiles; let i = index"
-                    class="file-item flex items-centr justify-between">
-                    <div class="images-list-info">
-                        <span>{{file.name}}</span>
-                        <span>({{(file.size / 1024 / 1024).toFixed(2)}}Mb)</span>
+             <div class="advert-category-image-array" *ngIf="selectedFiles.length > 0">
+                <h4>Выбранные файлы ({{selectedFiles.length}}):</h4>
+                <div class="advert-category-image-array-list">
+                    <div class="advert-category-image-array-list-file" *ngFor="let file of selectedFiles; let i = index">
+                        <span class="file-name">{{file.name}}</span>
+                        <button 
+                            type="button" 
+                            pButton 
+                            icon="pi pi-times" 
+                            class="p-button-danger"
+                            (click)="removeFile(i)">
+                        </button>
                     </div>
-                   <button 
-                    pButton 
-                    label="Удалить"
-                    severity="danger"
-                    (click)="removeFile(i)"></button>
                 </div>
-                <small>
-                    Можно выбрать до {{maxFiles}} изображений. Поддерживаются изображения формата: Jpeg, PNG, GIF
-                </small>
             </div>
         </div>
+
+        <div class="create-advert-description">
+            <label for="Description">Описание объявления</label>
+            <textarea
+                
+                id="Description"
+                formControlName="Description"
+                placeholder="Введите описание объявления (необязательно)"
+                [rows]="5"
+                class="auto-resize-textarea">
+            </textarea>
+            <small>Необязательное поле</small>
+        </div>
+
         <div class="create-advert-buttons">
             <button
             pButton
@@ -109,5 +130,7 @@
             class="p-button-primary"
             [disabled]="!createAdvertForm.valid"></button>
         </div>
+
+        
     </form>
 </div>

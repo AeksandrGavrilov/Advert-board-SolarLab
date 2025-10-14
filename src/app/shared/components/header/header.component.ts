@@ -1,8 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ButtonGroupModule } from 'primeng/buttongroup';
+import { UserInterface } from '../../../interfaces/user.interface';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { AuthService } from '../../../services/api/auth-service/auth.service';
+import { AuthLogicService } from '../../../services/business-logic/auth-logic/auth-logic.service';
 import { MenuItem } from 'primeng/api';
 import { SignInComponent } from '../sign-in/sign-in.component';
 import { Router, RouterLink } from "@angular/router";
@@ -28,7 +29,7 @@ export class HeaderComponent implements OnInit {
 
   private router = inject(Router)
   private dialogService = inject(DialogService);
-  public authService = inject(AuthService);
+  public authService = inject(AuthLogicService);
   
 
   currentUserName = '';
@@ -59,7 +60,6 @@ customButtonLoginToken: Object|undefined;
   }
 
   showSignIn(redirectUrl?: string) {
-     console.log('AuthGuard:Открываю диалог авторизации с redirectUrl:', redirectUrl);
     this.ref = this.dialogService.open(SignInComponent, {
       header: 'Вход в систему',
       width: '400px',
@@ -68,9 +68,7 @@ customButtonLoginToken: Object|undefined;
       }
     });
     this.ref.onClose.subscribe((result: any) => {
-      console.log('Получены результаты из диалога', result)
       if ( result?.success && result.redirectUrl) {
-        console.log('Выполняю навигацию на', result.redirectUrl)
         this.router.navigate([result.redirectUrl])
       }
     });
