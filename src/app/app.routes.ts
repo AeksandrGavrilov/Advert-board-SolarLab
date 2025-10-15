@@ -6,50 +6,57 @@ import { authGuard } from './core/guards/auth.guard';
 import { HomeComponent } from './features/advert/home/home.component';
 import { AdvertSearchPageComponent } from './features/advert/advert-search-page/advert-search-page.component';
 import { CurrentUserProfilePageComponent } from './features/profile/current-user-profile-page/current-user-profile-page.component';
+import { LayoutComponent } from './core/layout/layout/layout.component';
 
 export const routes: Routes = [
-   
-    { 
-        path: '',
-        component: HomeComponent,
-        data: { breadcrumb: 'Главная' }
-    },
-
     {
-        path: 'search',
-        component: AdvertSearchPageComponent,
-         data: { breadcrumb: 'Поиск объявлений' }
-    },
+    path: '',
+    component: LayoutComponent,  
+    children:
+    [                  
+        { 
+            path: '',
+            component: HomeComponent,
+            data: { breadcrumb: 'Главная' }
+        },
 
-    { 
-        path: 'adverts/create', 
-        component: CreateAdvertComponent, 
-        title: 'Создать объявление',
-        canActivate: [authGuard],
-         data: { breadcrumb: 'Создание объявления' }
-    },
+        {
+            path: 'search',
+            component: AdvertSearchPageComponent,
+            data: { breadcrumb: 'Поиск объявлений' }
+        },
 
-    { 
-        path: 'adverts/:id', 
-        component: AdvertDetailsComponent, 
-        title: 'Объявление' ,
-         data: { breadcrumb: 'Объявление' }
-    },
+        { 
+            path: 'adverts/create', 
+            component: CreateAdvertComponent, 
+            title: 'Создать объявление',
+            canActivate: [authGuard],
+            data: { breadcrumb: 'Создание объявления' }
+        },
 
-    { 
-        path: 'profile',
-        component: CurrentUserProfilePageComponent,
-        title: ' Профиль пользователя',
-        canActivate: [authGuard],
-        data: { breadcrumb: 'Профиль' } 
-    },
-    { 
-        path: 'my-adverts',
-        component: MyAdvertsPageComponent, 
-        title: ' Мои объявления',
-        canActivate: [authGuard],
-        data: { breadcrumb: 'Объявления пользователя'}
-    },
+        { 
+            path: 'adverts/:id', 
+            component: AdvertDetailsComponent, 
+            title: 'Объявление' ,
+            data: { breadcrumb: 'Объявление' }
+        },
 
-    {path: '**', redirectTo: ''}
-];
+        { 
+            path: 'profile',
+            component: CurrentUserProfilePageComponent,
+            title: ' Профиль пользователя',
+            canActivate: [authGuard],
+            data: { breadcrumb: 'Профиль' } 
+        },
+        { 
+            path: 'my-adverts',
+            component: MyAdvertsPageComponent, 
+            title: ' Мои объявления',
+            canActivate: [authGuard],
+            data: { breadcrumb: 'Объявления пользователя'}
+        },
+
+        {path: '**', redirectTo: ''}
+    ]
+    }
+]
