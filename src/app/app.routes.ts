@@ -7,6 +7,7 @@ import { HomeComponent } from './features/advert/home/home.component';
 import { AdvertSearchPageComponent } from './features/advert/advert-search-page/advert-search-page.component';
 import { CurrentUserProfilePageComponent } from './features/profile/current-user-profile-page/current-user-profile-page.component';
 import { LayoutComponent } from './core/layout/layout/layout.component';
+import { NotFoundComponent } from './features/not-found/not-found.component';
 
 export const routes: Routes = [
     {
@@ -56,7 +57,13 @@ export const routes: Routes = [
             data: { breadcrumb: 'Объявления пользователя'}
         },
 
-        {path: '**', redirectTo: ''}
+        {
+        path: '404',
+        component: NotFoundComponent,
+        data: { breadcrumb: 'Страница не найдена' }
+        },
+
+        {path: '**', redirectTo: '404'}
     ]
     }
 ]
