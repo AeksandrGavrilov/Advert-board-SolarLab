@@ -1,15 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { TieredMenuModule } from 'primeng/tieredmenu'; // 1. Импортируем TieredMenu
+import { TieredMenuModule } from 'primeng/tieredmenu'; 
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { Router, RouterLink, RouterModule } from '@angular/router';
-import { CategoryLogicService } from '../../../services/business-logic/Category-logic/category-logic.service'; 
+import { CategoryLogicService } from '../../../data-services/logic/Category-logic/category-logic.service'; 
 import { CategoryInterface } from '../../../interfaces/category.interface';
-import { AdvertService } from '../../../services/business-logic/advert-logic/advert.service';
+import { AdvertService } from '../../../data-services/logic/advert-logic/advert.service';
 import { MenuItem } from 'primeng/api';
 import { catchError, of, tap } from 'rxjs';
 import { SearchAdvertsRequest } from '../../../interfaces/adverts-request.interface';
-import { AdvertApiService } from '../../../services/api/advert-api/advert-api.service';
+import { AdvertApiService } from '../../../data-services/api/advert-api/advert-api.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({

@@ -1,23 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ButtonGroupModule } from 'primeng/buttongroup';
-import { UserInterface } from '../../../interfaces/user.interface';
+import { UserInterface } from '../../../core/interfaces/user.interface';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { AuthLogicService } from '../../../services/business-logic/auth-logic/auth-logic.service';
+import { AuthLogicService } from '../../../core/services/auth-logic/auth-logic.service';
 import { MenuItem } from 'primeng/api';
-import { SignInComponent } from '../sign-in/sign-in.component';
+import { SignInComponent } from '../../../core/components/auth-component/sign-in/sign-in.component';
 import { Router, RouterLink } from "@angular/router";
 import { AsyncPipe } from '@angular/common';
 import { MenuModule } from 'primeng/menu';
-import { routes } from '../../../app.routes';
-
 
 @Component({
   selector: 'app-header',
   imports: [
     ButtonModule,
     ButtonGroupModule,
-    RouterLink,
     AsyncPipe,
     MenuModule,
 ],

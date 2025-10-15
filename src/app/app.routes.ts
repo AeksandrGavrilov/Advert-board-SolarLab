@@ -1,17 +1,17 @@
 import { Routes } from '@angular/router';
-import { CreateAdvertComponent } from './shared/components/create-advert/create-advert.component';
-import { AdvertDetailsComponent } from './shared/components/advert-details/advert-details.component';
-import { MyAdvertsPageComponent } from './pages/my-adverts-page/my-adverts-page.component';
-import { authGuard } from './guards/auth.guard';
-import { AdvertListPageComponent } from './pages/advert-list/advert-list-page/advert-list-page.component';
-import { AdvertSearchPageComponent } from './pages/advert-search-page/advert-search-page/advert-search-page.component';
-import { CurrentUserProfilePageComponent } from './pages/current-user-profile-page/current-user-profile-page.component';
+import { CreateAdvertComponent } from './features/advert/create-advert/create-advert.component';
+import { AdvertDetailsComponent } from './features/advert/advert-details/advert-details.component';
+import { MyAdvertsPageComponent } from './features/profile/my-adverts-page/my-adverts-page.component';
+import { authGuard } from './core/guards/auth.guard';
+import { HomeComponent } from './features/advert/home/home.component';
+import { AdvertSearchPageComponent } from './features/advert/advert-search-page/advert-search-page.component';
+import { CurrentUserProfilePageComponent } from './features/profile/current-user-profile-page/current-user-profile-page.component';
 
 export const routes: Routes = [
    
     { 
         path: '',
-        component: AdvertListPageComponent,
+        component: HomeComponent,
         data: { breadcrumb: 'Главная' }
     },
 
