@@ -25,7 +25,7 @@
       placeholder="Введите пароль" />
   </div>
 
-   <div class="sign-up__field mb-3">
+   <div class="sign-up-confirm mb-3">
     <label class="sign-up-label">Подтверждение пароля</label>
     <p-password 
       [(ngModel)]="confirmPassword" 
@@ -33,7 +33,7 @@
       placeholder="Повторите пароль" />
   </div>
   
-  <div class="sign-up__field mb-4">
+  <div class="sign-up-phone mb-4">
     <label class="sign-up-label">Телефон (Не обязательно)</label>
     <input 
       pInputText 
@@ -45,8 +45,20 @@
     <div class="sign-up-message">{{errorMessage}}</div>
   }
 
-  <div class="sign-up-buttons">
-    <p-button label="Отмена" (click)="close()" class="p-button-text"></p-button>
-    <p-button label="Зарегестрироваться" (click)="register()" [loading]="loading"></p-button>
+  <div class="sign-up-buttons flex justify-content-start  gap-2">
+
+    <button 
+    pButton
+    severity="danger"
+    label="Отмена"
+    class="p-button-text"
+    (click)="close()"></button>
+ 
+    <button 
+    pButton
+    label="Регистрация"
+    [loading]="loading"
+    (click)="register()"></button>
+
   </div>
 </div>

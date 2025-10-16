@@ -1,26 +1,25 @@
-<div class="user-profile-page">
-  <div class="container">
-    <h1>Профиль пользователя</h1>
+
+<div class="container">
+  <div class="user-profile-page">
+      <h2>Профиль пользователя</h2>
     
-    @if (currentUser) {
-      <div class="profile-info">
-        <div class="profile-header">
-          <h2>{{ currentUser.name }}</h2>
-          <div class="user-details">
-            <p><strong>Логин:</strong> {{ currentUser.login }}</p>
-            <p><strong>Роль:</strong> {{ currentUser.role }}</p>
-            <p><strong>Зарегистрирован:</strong> {{ currentUser.registeredTime | transformDatePipe }}</p>
+        @if (currentUser) {
+          <div class="profile-info">
+            <div class="profile-info-details">
+              <h3>Имя пользователя: {{ currentUser.name }}</h3>
+              <h3>Логин: {{ currentUser.login }}</h3>
+              <h3>Права пользователя: {{ currentUser.role }}</h3>
+              <h3>Зарегистрирован: {{ currentUser.registeredTime | transformDatePipe }}</h3>
+              </div>
+              
+              <div class="user-adverts">
+                <h2>Мои объявления ({{ currentUser.adverts.length }})</h2>
+                <app-card-grid 
+                  [adverts]="currentUser.adverts"
+                  [imageUrls]="imageUrls">
+                </app-card-grid>
+              </div>
           </div>
-        </div>
-        
-        <div class="user-adverts">
-          <h3>Мои объявления ({{ currentUser.adverts.length }})</h3>
-          <app-card-grid 
-            [adverts]="currentUser.adverts"
-            [imageUrls]="imageUrls">
-          </app-card-grid>
-        </div>
-      </div>
-    }
+          }
   </div>
 </div>

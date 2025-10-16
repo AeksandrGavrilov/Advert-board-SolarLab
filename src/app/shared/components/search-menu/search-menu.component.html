@@ -2,16 +2,16 @@
     <div class="container">
         <div class="search-menu-logo">
             <a routerLink="/">
-                <span class="logo_black">Доска объявлений</span>
+                <h1>Доска объявлений</h1>
             </a>
         </div>
         
         @if(!loading) {
            
             <div class="menu-container">
-                <button 
-                    type="button" 
+                <button  
                     pButton 
+                    size="small"
                     icon="pi pi-bars" 
                     label="Все категории"
                     (click)="menu.toggle($event)">
@@ -40,11 +40,13 @@
             class="search-menu-block-input"
             [(ngModel)]="searchText"
             (keyup.enter)="onTextSearch()"/>
-            <p-button
-            icon="pi pi-search"
+            
+            <button
+            pButton
             label="Найти"
-            class="search-menu-block-button"
-            (click)="onTextSearch()"></p-button>
+            size="small"
+            icon="pi pi-search"
+            (click)="onTextSearch()"></button>
         </div>
     </div>
 </div>

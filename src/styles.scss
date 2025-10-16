@@ -1,9 +1,11 @@
 @import "primeicons/primeicons.css";
 @import "reset.scss";
 @import 'primeflex/primeflex.css';
-
+@import './styles/buttons';
+@import './styles/fonts';
 
 .container {
     width: 1296px;
     margin: 0 auto;
 }
+

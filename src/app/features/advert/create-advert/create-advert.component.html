@@ -1,136 +1,139 @@
-<div class="creat-advert">
-    <form [formGroup]="createAdvertForm" (ngSubmit)="onSubmit()">
+<div class="container">
+    <div class="create-advert">
+        <form [formGroup]="createAdvertForm" (ngSubmit)="onSubmit()" class="flex flex-column gap-4">
 
-        <div class="create-advert-label">
-            <label for="Name">Название объявления*</label>
-            <input 
-            pInputText
-            id="Name"
-            formControlName="Name"
-            placeholder="Введите название объявления">
-
-            <small *ngIf="(createAdvertForm.get('Name')?.touched || createAdvertForm.get('Name')?.dirty)  &&  createAdvertForm.get('Name')?.invalid">
-                название обязательно и должно содержать не менее четырех символов
-            </small>
-        </div>
-
-        <div class="create-advert-cost">
-            <label for="Cost"> Цена*</label>
-            <p-inputNumber 
-                id="Cost"
-                formControlName="Cost"
-                mode="currency"
-                currency="RUB"
-                locale="ru-RU">
-            </p-inputNumber>
-            <small *ngIf="createAdvertForm.get('Cost')?.touched && createAdvertForm.get('Cost')?.invalid">
-                Обязательное поле, цена должна быть положительной
-            </small>
-        </div>
-
-        <div class="create-advert-phone">
-            <label for="Phone">Телефон*</label>
-            <input 
+            <div class="create-advert-label flex justify-content-start gap-4 align-items-center">
+                <label for="Name">Название объявления*</label>
+                <input 
                 pInputText
-                id="Phone"
-                formControlName="Phone"
-                placeholder="Введите телефон">
-            <small *ngIf="createAdvertForm.get('Phone')?.touched && createAdvertForm.get('Phone')?.invalid">
-                Телефон обязателен
-            </small>
-        </div>
+                id="Name"
+                formControlName="Name"
+                placeholder="Введите название объявления">
 
-        <div class="create-advert-location">
-            <p-autoComplete 
-                 id="location"
-                formControlName="Location"
-                [suggestions]="addressSuggestion"
-                (completeMethod)="searchAddress($event)"
-                optionLabel="value" 
-                placeholder="Начните вводить адрес"
-                [dropdown]="true"
-                class="w-full">
-            </p-autoComplete>
-
-            <small *ngIf="createAdvertForm.get('Location')?.touched && createAdvertForm.get('Location')?.invalid">
-                Обязательное поле
-            </small>
-        </div>
-
-        <div class="create-advert-category">
-          <label for="CategoryId">Категория*</label>
-            <div class="create-advert-category-block">
-                <button 
-                    type="button" 
-                    pButton 
-                    icon="pi pi-list"
-                    [label]="selectedCategoryName"
-                    (click)="categoryMenu.toggle($event)"
-                    class="create-advert-category-block-button">
-                </button>
-                
-                <p-tieredmenu 
-                    #categoryMenu
-                    [model]="menuItems"
-                    [popup]="true"
-                    styleClass="category-tieredmenu">
-                </p-tieredmenu>
-
-                <input type="hidden" formControlName="CategoryId">
+                <small *ngIf="(createAdvertForm.get('Name')?.touched || createAdvertForm.get('Name')?.dirty)  &&  createAdvertForm.get('Name')?.invalid">
+                    название обязательно и должно содержать не менее четырех символов
+                </small>
             </div>
-            <small *ngIf="createAdvertForm.get('CategoryId')?.touched && createAdvertForm.get('CategoryId')?.invalid">
-                Необходимо выбрать категорию
-            </small>
-        </div>
 
-        <div class="advert-category-image">
-            <label for="Image"> Изображение объявления</label>
-            <input
-             type="file"
-             id="Image"
-             (change)="onFileSelected($event)"
-             accept="image/*"
-             multiple>
+            <div class="create-advert-cost flex justify-content-start gap-4 align-items-center">
+                <label for="Cost"> Цена*</label>
+                <p-inputNumber 
+                    id="Cost"
+                    formControlName="Cost"
+                    mode="currency"
+                    currency="RUB"
+                    locale="ru-RU">
+                </p-inputNumber>
+                <small *ngIf="createAdvertForm.get('Cost')?.touched && createAdvertForm.get('Cost')?.invalid">
+                    Обязательное поле, цена должна быть положительной
+                </small>
+            </div>
 
-             <div class="advert-category-image-array" *ngIf="selectedFiles.length > 0">
-                <h4>Выбранные файлы ({{selectedFiles.length}}):</h4>
-                <div class="advert-category-image-array-list">
-                    <div class="advert-category-image-array-list-file" *ngFor="let file of selectedFiles; let i = index">
-                        <span class="file-name">{{file.name}}</span>
+            <div class="create-advert-phone flex justify-content-start gap-4 align-items-center">
+                <label for="Phone">Телефон*</label>
+                <input 
+                    pInputText
+                    id="Phone"
+                    formControlName="Phone"
+                    placeholder="Введите телефон">
+                <small *ngIf="createAdvertForm.get('Phone')?.touched && createAdvertForm.get('Phone')?.invalid">
+                    Телефон обязателен
+                </small>
+            </div>
+
+            <div class="create-advert-location flex justify-content-start gap-4 align-items-center">
+                <label for="Location">Введите адрес*</label>
+                <p-autoComplete 
+                    id="location"
+                    formControlName="Location"
+                    [suggestions]="addressSuggestion"
+                    (completeMethod)="searchAddress($event)"
+                    optionLabel="value" 
+                    placeholder="Начните вводить адрес"
+                    [dropdown]="true"
+                    class="w-full">
+                </p-autoComplete>
+
+                <small *ngIf="createAdvertForm.get('Location')?.touched && createAdvertForm.get('Location')?.invalid">
+                    Обязательное поле
+                </small>
+            </div>
+
+                <div class="create-advert-category flex justify-content-start gap-4 align-items-center">
+                <label for="CategoryId">Категория*</label>
+                    <div class="create-advert-category-block">
                         <button 
                             type="button" 
                             pButton 
-                            icon="pi pi-times" 
-                            class="p-button-danger"
-                            (click)="removeFile(i)">
+                            icon="pi pi-list"
+                            [label]="selectedCategoryName"
+                            (click)="categoryMenu.toggle($event)"
+                            class="create-advert-category-block-button">
                         </button>
+                        
+                        <p-tieredmenu 
+                            #categoryMenu
+                            [model]="menuItems"
+                            [popup]="true"
+                            styleClass="category-tieredmenu">
+                        </p-tieredmenu>
+
+                        <input type="hidden" formControlName="CategoryId">
+                    </div>
+                    <small *ngIf="createAdvertForm.get('CategoryId')?.touched && createAdvertForm.get('CategoryId')?.invalid">
+                        Необходимо выбрать категорию
+                    </small>
+                </div>
+
+                <div class="advert-category-image flex justify-content-start align-items-center">
+                    <label for="Image"> Изображения объявления</label>
+                </div>
+                <div class="advert-category-image flex justify-content-start align-items-center">
+
+                    <input
+                        type="file"
+                        id="Image"
+                        (change)="onFileSelected($event)"
+                        accept="image/*"
+                        multiple>
+
+                    <div class="advert-category-image-array" *ngIf="selectedFiles.length > 0">
+                        <div class="advert-category-image-array-list ">
+                            <div class="advert-category-image-array-list-file"
+                                *ngFor="let file of selectedFiles; let i = index">
+                                    <span class="file-name">{{file.name}}</span>
+                                <button 
+                                        type="button" 
+                                        pButton 
+                                        icon="pi pi-times" 
+                                        class="p-button-danger"
+                                        (click)="removeFile(i)">
+                                </button>
+                             </div>
+                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+                <div class="create-advert-description flex justify-content-start gap-4 align-items-center">
+                    <label for="Description">Описание объявления</label>
+                    <textarea
+                        id="Description"
+                        formControlName="Description"
+                        placeholder="Введите описание объявления (необязательно)"
+                        [rows]="5"
+                        class="auto-resize-textarea">
+                    </textarea>
+                </div>
 
-        <div class="create-advert-description">
-            <label for="Description">Описание объявления</label>
-            <textarea
-                
-                id="Description"
-                formControlName="Description"
-                placeholder="Введите описание объявления (необязательно)"
-                [rows]="5"
-                class="auto-resize-textarea">
-            </textarea>
-            <small>Необязательное поле</small>
-        </div>
-
-        <div class="create-advert-buttons">
-            <button
-            pButton
-            type="submit"
-            label="Создать объявление"
-            class="p-button-primary"
-            [disabled]="!createAdvertForm.valid"></button>
-        </div>
+                <div class="create-advert-buttons">
+                    <button
+                    pButton
+                    type="submit"
+                    label="Создать объявление"
+                    class="p-button-primary"
+                    [disabled]="!createAdvertForm.valid"></button>
+                </div>
 
         
-    </form>
-</div>
+            </form>
+        </div>
+    </div>

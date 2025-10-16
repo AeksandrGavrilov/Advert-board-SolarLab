@@ -1,0 +1,40 @@
+.advert-details-block {
+    display: flex;
+    justify-content: space-between;
+
+    &-left{
+        width: 852px;
+    }
+
+    &-right {
+        width: 416px;
+
+        &-section {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 24px;
+        }
+    }
+}
+
+h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    color: #1E293B;
+    margin-bottom: 8px;
+}
+
+h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    color: #1E293B;
+    margin-bottom: 8px;
+}
+p {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #1E293B;
+}            

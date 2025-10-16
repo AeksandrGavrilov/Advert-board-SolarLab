@@ -3,8 +3,8 @@
         <img [src]="imageUrl | imagePipe" alt="{{advert.name}}">
     </div>
     <div class="card-name">{{advert.name}}</div>
-    <div class="card-cost">{{advert.cost}} руб</div>
-    <div class="card-city">{{advert.location}}</div>
-    <div class="card-time">{{advert.createdAt | transformDatePipe}}</div>
+    <div class="card-cost">{{advert.cost}} ₽</div>
+    <div class="card-location">{{advert.location}}</div>
+    <div class="card-created-at">{{advert.createdAt | transformDatePipe}}</div>
 
 </div>

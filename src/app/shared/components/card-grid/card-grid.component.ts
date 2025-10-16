@@ -9,7 +9,7 @@ import { ImagePipe } from '../../pipes/image.pipe';
   imports: [
     CommonModule,
     CardComponent,
-    ImagePipe,
+    // ImagePipe,
     ],
   templateUrl: './card-grid.component.html',
   styleUrl: './card-grid.component.scss',
