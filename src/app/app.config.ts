@@ -9,6 +9,7 @@ import { DialogModule } from 'primeng/dialog';
 import { MessageService } from 'primeng/api';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import Aura from '@primeng/themes/aura';
+import { myPreset } from '../styles/my-preset';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,7 +24,7 @@ export const appConfig: ApplicationConfig = {
     MessageService,
     providePrimeNG({
       theme: {
-        preset: Aura
+        preset: myPreset
       }
     })
   ]
