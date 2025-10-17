@@ -1,7 +1,6 @@
 <div class="advert-deitails">
     <div class="container">
         <div class="advert-details-block">
-
             <div class="advert-details-block-left">
                     <div class="advert-details-block-left-label">
                         <h2> {{advert?.name}}</h2>
@@ -12,31 +11,28 @@
                         [numVisible]="3"
                         [circular]="true"
                         [showItemNavigators]="true"
-                        [showThumbnails]="images.length > 1"
-                        [containerStyle]="{'max-width': '100%' }">
-                    
+                        [showThumbnails]="images.length > 1">
+                        
                         <ng-template pTemplate="item" let-item>
                             <img [src]="item | imagePipe"
                             [alt]="advert?.name"
-                            class="image" />
+                            class="image"
+                            style="width: 856px; height: 512px; object-fit: cover;" />
                         </ng-template>
 
                         <ng-template pTemplate="thumbnail" let-item>
                             <img
                             [src]="item | imagePipe"
                             [alt]="advert?.name" 
-                            class="thumbnail-image" />
+                            class="thumbnail-image"
+                            style="width: 120px; height: 84px; object-fit: cover;" />
                         </ng-template>
                     </p-galleria>
                 </div>
             </div>
-
             <div class="advert-details-block-right">
-
                 <div class="advert-details-block-right-section">
-
                     <h2 class="price"> {{advert?.cost}} руб.</h2>
-
                     <div *ngIf="showPhone; else phoneButton">
                         <p class="phone">{{advert?.phone}}</p>
                     </div>
@@ -51,7 +47,6 @@
                         </button>
                         <p *ngIf="!isAuthenticated">Чтобы увидеть телефон, необходимо авторизироваться</p>
                     </ng-template>
-
                 </div>
                 
 

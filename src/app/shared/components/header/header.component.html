@@ -1,35 +1,37 @@
 <div class="header">
     <div class="container">
         <div class="header-block">
-            @if (!(authService.isAuthenticated$ | async)) {
+             <div class="header-block-buttons">
+                @if (!(authService.isAuthenticated$ | async)) {
+                    <button
+                        pButton 
+                        size="small"
+                        icon="pi pi-user" 
+                        label="Войти"
+                        class="p-button-text"
+                        (click)="showSimpleSignIn()">
+                    </button>
+                } @else {
+                    <div class="flex align-items-center ">
+                        <p-menu #menu [model]="userMenuItems" [popup]="true"></p-menu>
+                        <button
+                        pButton
+                        size="small"
+                        icon="pi pi-user"
+                        class="p-button-text"
+                        (click)="menu.toggle($event)"
+                        [label]="currentUserName"></button>
+                    </div>
+                }
                 <button
                     pButton 
                     size="small"
-                    icon="pi pi-user" 
-                    label="Войти"
-                    class="p-button-text"
-                    (click)="showSimpleSignIn()">
+                    class="p-button-primary p-button-sm"
+                    icon="pi pi-plus" 
+                    label="Новое объявление"
+                    (click)="handleCreateAdvert()">
                 </button>
-            } @else {
-                <div class="flex align-items-center ">
-                    <p-menu #menu [model]="userMenuItems" [popup]="true"></p-menu>
-                    <button
-                    pButton
-                    size="small"
-                    icon="pi pi-user"
-                    class="p-button-text"
-                    (click)="menu.toggle($event)"
-                    [label]="currentUserName"></button>
-                </div>
-            }
-            <button
-                pButton 
-                size="small"
-                class="p-button-primary p-button-sm"
-                icon="pi pi-plus" 
-                label="Новое объявление"
-                (click)="handleCreateAdvert()">
-            </button>
+            </div>
         </div>
     </div>
 </div>

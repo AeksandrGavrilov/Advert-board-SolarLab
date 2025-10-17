@@ -7,18 +7,19 @@
     align-items: center;
      
 }
-.container {
+.header-block{
     display: flex;
     justify-content: flex-end;
-
-    .header-block {
-        width: 300px;
-        height: 36px;
-        display: flex;
-        justify-content:space-between;
-        align-items: center;
-    }
-
 }
+.header-block-buttons {
+    width: 300px;
+    height: 36px;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    gap: 4px;
+}
+
+
 
 
