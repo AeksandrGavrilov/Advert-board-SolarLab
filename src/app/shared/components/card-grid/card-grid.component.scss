@@ -1,11 +1,6 @@
 .card-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-}
-.card-grid-advert {
-    width: 306px;
-    height: 360px;
-    display: flex;
-    flex-direction: column;
+    justify-content: flex-start;
+    gap: 24px;
 }
