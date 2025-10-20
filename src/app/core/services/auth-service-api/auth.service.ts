@@ -11,26 +11,26 @@ import { environment } from '../../environment/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URL = environment.API_URL;
-  private http  = inject(HttpClient);
-  private router = inject(Router)
+    private readonly API_URL = environment.API_URL;
+    private http  = inject(HttpClient);
+    private router = inject(Router)
 
-  public login(authData: AuthificationDataInterface): Observable<string> {  
-    return this.http.post<string>(
-      `${this.API_URL}/Auth/Login`,
-      authData,
-      {responseType: "text" as "json"}
-    )
+    public login(authData: AuthificationDataInterface): Observable<string> {  
+        return this.http.post<string>(
+        `${this.API_URL}/Auth/Login`,
+        authData,
+        {responseType: "text" as "json"}
+        )
   }         
 
-  public register(registerData: RegisterNewUserInterface): Observable<string> {
-    return this.http.post<string>(
-      `${this.API_URL}/Auth/Register`,
-      registerData,
-      {
-        responseType: "text" as "json",
-        headers: {'Content-Type': 'application/json'}
-      }
-    )
-    }
+    public register(registerData: RegisterNewUserInterface): Observable<string> {
+        return this.http.post<string>(
+        `${this.API_URL}/Auth/Register`,
+        registerData,
+        {
+            responseType: "text" as "json",
+            headers: {'Content-Type': 'application/json'}
+        }
+        )
+        }
 }

@@ -10,12 +10,12 @@ import { environment } from '../../../../core/environment/environment';
   providedIn: 'root'
 })
 export class GetMyAdvertsService implements GetAdverts{
-  private http = inject(HttpClient);
-  
-  getAdverts(): Observable<AdvertInterface[]> {
-    return this.http.get<CurrentUser>(`${environment.API_URL}/Users/current`)
-      .pipe(
-        map(currentUser => currentUser.adverts)
-      )
-  }
+    private http = inject(HttpClient);
+    
+    getAdverts(): Observable<AdvertInterface[]> {
+        return this.http.get<CurrentUser>(`${environment.API_URL}/Users/current`)
+        .pipe(
+            map(currentUser => currentUser.adverts)
+        )
+    }
 }

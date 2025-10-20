@@ -11,74 +11,74 @@ import { catchError, of, tap } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-search-menu',
-  imports: [
-    TieredMenuModule, 
-    InputTextModule,
-    ButtonModule,
-    RouterLink,
-    RouterModule,
-    FormsModule
-  ],
-  templateUrl: './search-menu.component.html',
-  styleUrl: './search-menu.component.scss',
-  standalone: true,
+    selector: 'app-search-menu',
+    imports: [
+        TieredMenuModule, 
+        InputTextModule,
+        ButtonModule,
+        RouterLink,
+        RouterModule,
+        FormsModule
+    ],
+    templateUrl: './search-menu.component.html',
+    styleUrl: './search-menu.component.scss',
+    standalone: true,
 })
 export class SearchMenuComponent {
-  private categoryService = inject(CategoryLogicService);
-  private router = inject(Router)
+    private categoryService = inject(CategoryLogicService);
+    private router = inject(Router)
 
-  searchText: string ='';
-  menuItems: MenuItem[] = []; 
-  loading = false;
+    searchText: string ='';
+    menuItems: MenuItem[] = []; 
+    loading = false;
 
-  ngOnInit() {
-    this.loadCategoriesForMenu(); 
-  };
+    ngOnInit() {
+        this.loadCategoriesForMenu(); 
+    };
 
-  loadCategoriesForMenu() {
-    this.loading = true;
+    loadCategoriesForMenu() {
+        this.loading = true;
 
-    this.categoryService.getCategoriesTree().pipe(
-      tap((categoryTree: CategoryInterface[]) => {
-        this.menuItems = this.buildMenuItems(categoryTree);
-        console.log('Меню успешно создано', this.menuItems);
-      }),
-      catchError((error) => {
-      console.error('Ошибка загрузки категории', error);
-      return of(null);  
-      }),
-      tap(() => {
-        this.loading = false;
-      })
-    ).subscribe()
-  };
+        this.categoryService.getCategoriesTree().pipe(
+        tap((categoryTree: CategoryInterface[]) => {
+            this.menuItems = this.buildMenuItems(categoryTree);
+            console.log('Меню успешно создано', this.menuItems);
+        }),
+        catchError((error) => {
+        console.error('Ошибка загрузки категории', error);
+        return of(null);  
+        }),
+        tap(() => {
+            this.loading = false;
+        })
+        ).subscribe()
+    };
 
-  private buildMenuItems(categories: CategoryInterface[]): MenuItem[] {
-    return categories.map(category => {
-      const menuItem: MenuItem = {
-        label: category.name,
-        icon: 'pi pi-folder',
-      };
+    private buildMenuItems(categories: CategoryInterface[]): MenuItem[] {
+        return categories.map(category => {
+        const menuItem: MenuItem = {
+            label: category.name,
+            icon: 'pi pi-folder',
+        };
 
-      if (category.items && category.items.length > 0) {
-        menuItem.items = this.buildMenuItems(category.items);
-      } else {
-        menuItem.command = () => this.onCategorySelect(category.id)
-      }
+        if (category.items && category.items.length > 0) {
+            menuItem.items = this.buildMenuItems(category.items);
+        } else {
+            menuItem.command = () => this.onCategorySelect(category.id)
+        }
 
-      return menuItem;
-    });
-  };
-  private onCategorySelect(categoryId: string) {
-    console.log('Выбрана категория', categoryId);
-    this.router.navigate(['/search'], {
-      queryParams: { category: categoryId}
-    })
-  };
-  onTextSearch(): void {
-    this.router.navigate(['/search'], {
-      queryParams: {search: this.searchText}
-    })
-  };
+        return menuItem;
+        });
+    };
+    private onCategorySelect(categoryId: string) {
+        console.log('Выбрана категория', categoryId);
+        this.router.navigate(['/search'], {
+        queryParams: { category: categoryId}
+        })
+    };
+    onTextSearch(): void {
+        this.router.navigate(['/search'], {
+        queryParams: {search: this.searchText}
+        })
+    };
 }

@@ -9,49 +9,49 @@ import { GetCurrentUserService } from '../../../data-services/api/user-api/get-c
 import { TransformDatePipe } from '../../../shared/pipes/transform-date.pipe';
 
 @Component({
-  selector: 'app-current-user-profile-page',
-  imports: [
-    CardGridComponent,
-    CommonModule,
-    TransformDatePipe,
-  ],
-  providers: [
-    {provide: GetCurrentUserServiceToken, useClass: GetCurrentUserService}
-  ],
-  templateUrl: './current-user-profile-page.component.html',
-  styleUrl: './current-user-profile-page.component.scss'
+    selector: 'app-current-user-profile-page',
+    imports: [
+        CardGridComponent,
+        CommonModule,
+        TransformDatePipe,
+    ],
+    providers: [
+        {provide: GetCurrentUserServiceToken, useClass: GetCurrentUserService}
+    ],
+    templateUrl: './current-user-profile-page.component.html',
+    styleUrl: './current-user-profile-page.component.scss'
 })
 export class CurrentUserProfilePageComponent implements OnInit {
-  private getCurrentUserService = inject(GetCurrentUserServiceToken);
-  private imageService = inject(ImageService);
+    private getCurrentUserService = inject(GetCurrentUserServiceToken);
+    private imageService = inject(ImageService);
 
-  currentUser: CurrentUser | null = null;
-  imageUrls: Record<string, string> = {};
+    currentUser: CurrentUser | null = null;
+    imageUrls: Record<string, string> = {};
 
-  ngOnInit(): void {
-    this.loadCurrentUser();
-  }
+    ngOnInit(): void {
+        this.loadCurrentUser();
+    }
 
-  loadCurrentUser(): void {
-    this.getCurrentUserService.getCurrentUser()
-      .pipe(
-        tap(user => {
-          this.currentUser = user;
-          this.prepareImageUrls(user.adverts);
-        }),
-        catchError(error => {
-          console.error('Ошибка загрузки профиля:', error);
-          return of(null);
-        })
-      )
-      .subscribe();
-  }
-  private prepareImageUrls(adverts: any[]): void {
-    this.imageUrls = {};
-    adverts.forEach(advert => {
-      if (advert.imagesIds?.length > 0) {
-        this.imageUrls[advert.id] = this.imageService.getImgUrlById(advert.imagesIds[0]);
-      }
-    });
-  }
+    loadCurrentUser(): void {
+        this.getCurrentUserService.getCurrentUser()
+        .pipe(
+            tap(user => {
+            this.currentUser = user;
+            this.prepareImageUrls(user.adverts);
+            }),
+            catchError(error => {
+            console.error('Ошибка загрузки профиля:', error);
+            return of(null);
+            })
+        )
+        .subscribe();
+    }
+    private prepareImageUrls(adverts: any[]): void {
+        this.imageUrls = {};
+        adverts.forEach(advert => {
+        if (advert.imagesIds?.length > 0) {
+            this.imageUrls[advert.id] = this.imageService.getImgUrlById(advert.imagesIds[0]);
+        }
+        });
+    }
 }

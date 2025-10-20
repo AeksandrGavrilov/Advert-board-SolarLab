@@ -11,71 +11,71 @@ import { MessageService } from 'primeng/api';
 import { catchError, of, tap } from 'rxjs';
 
 @Component({
-  selector: 'app-sign-in',
-  imports: [
-    CommonModule,
-    FormsModule,
-    InputTextModule,
-    PasswordModule,
-    ButtonModule
-  ],
-  templateUrl: './sign-in.component.html',
-  styleUrl: './sign-in.component.scss',
-  standalone: true,
+    selector: 'app-sign-in',
+    imports: [
+        CommonModule,
+        FormsModule,
+        InputTextModule,
+        PasswordModule,
+        ButtonModule
+    ],
+    templateUrl: './sign-in.component.html',
+    styleUrl: './sign-in.component.scss',
+    standalone: true,
 })
 export class SignInComponent {
-  private authService = inject(AuthLogicService)
-  private dialogRef = inject(DynamicDialogRef)
-  private dialogService = inject(DialogService)
-  private messageToastService = inject(MessageService)
-  private dialogConfig = inject(DynamicDialogConfig)
+    private authService = inject(AuthLogicService)
+    private dialogRef = inject(DynamicDialogRef)
+    private dialogService = inject(DialogService)
+    private messageToastService = inject(MessageService)
+    private dialogConfig = inject(DynamicDialogConfig)
 
-  credentials ={login: 'Gavrilov', password: '0123456789'};
-  loading = false;
-  errorMessage = '';
+    credentials ={login: '', password: ''};
+    loading = false;
+    errorMessage = '';
 
-  ngOnInit(){
-    const redirectUrl = this.dialogConfig.data?.redirectUrl;
-  }
-  
-  login(){
-    this.loading = true;
-    this.errorMessage = '';
+    ngOnInit(){
+        const redirectUrl = this.dialogConfig.data?.redirectUrl;
+    }
+    
+    login(){
+        this.loading = true;
+        this.errorMessage = '';
 
-    this.authService.login(this.credentials).pipe(
-      tap(() => {
-        this.loading = false;
-        this.messageToastService.add({
-           severity: "success",
-           summary: "Успешно!",
-           detail: "Авторизация прошла успешно!"
-        });
-          this.dialogRef.close({
-            success: true,
-            redirectUrl: this.dialogConfig.data?.redirectUrl
-          });
-      }),
-      catchError( (error) => {
+        this.authService.login(this.credentials).pipe(
+        tap(() => {
             this.loading = false;
-            this.errorMessage = 'Ошибка авторизации!';
-            return of(null)
-          })
-    ).subscribe()
-  };
+            this.messageToastService.add({
+            severity: "success",
+            summary: "Успешно!",
+            detail: "Авторизация прошла успешно!"
+            });
+            this.dialogRef.close({
+                success: true,
+                redirectUrl: this.dialogConfig.data?.redirectUrl
+            });
+        }),
+        catchError( (error) => {
+                this.loading = false;
+                this.errorMessage = 'Ошибка авторизации!';
+                return of(null)
+            })
+        ).subscribe()
+    };
 
-  openRegister() {
-    this.dialogRef.close()
-    this.dialogService.open(SignUpComponent, {
-      header: 'Регистрация' ,
-      width: '400px',
-      modal: true,
-      dismissableMask:true
-    })
-  }
-  
-  close () {
-    this.dialogRef.close({success: false})
-  }
+    openRegister() {
+        this.dialogRef.close()
+        this.dialogService.open(SignUpComponent, {
+        header: 'Регистрация' ,
+        width: '400px',
+        modal: true,
+        dismissableMask:true
+        })
+    }
+    
+    close () {
+        this.dialogRef.close({success: false})
+    }
 }
 
 

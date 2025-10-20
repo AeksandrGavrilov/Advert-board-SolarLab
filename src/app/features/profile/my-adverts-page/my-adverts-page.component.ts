@@ -8,16 +8,16 @@ import { CardGridComponent } from '../../../shared/components/card-grid/card-gri
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-my-adverts-page',
-  imports: [
-    CardGridComponent,
-    CommonModule
-  ],
-  providers: [
-    {provide: GetAdvertsServiceToken, useClass: GetMyAdvertsService}
-  ],
-  templateUrl: './my-adverts-page.component.html',
-  styleUrl: './my-adverts-page.component.scss'
+    selector: 'app-my-adverts-page',
+    imports: [
+        CardGridComponent,
+        CommonModule
+    ],
+    providers: [
+        {provide: GetAdvertsServiceToken, useClass: GetMyAdvertsService}
+    ],
+    templateUrl: './my-adverts-page.component.html',
+    styleUrl: './my-adverts-page.component.scss'
 })
 export class MyAdvertsPageComponent implements OnInit{
   private imageService = inject(ImageService);
@@ -31,27 +31,27 @@ export class MyAdvertsPageComponent implements OnInit{
   }
 
   loadMyAdverts(): void {
-    this.getAdvertsService.getAdverts()
-      .pipe(
-        tap(adverts => {
-          this.adverts = adverts;
-          this.prepareImageUrls(adverts);
-        }),
-        catchError(error => {
-          console.error('Ошибка загрузки моих объявлений:', error);
-          return of([]);
-        })
-      ).subscribe();
-  }
+        this.getAdvertsService.getAdverts()
+        .pipe(
+            tap(adverts => {
+            this.adverts = adverts;
+            this.prepareImageUrls(adverts);
+            }),
+            catchError(error => {
+            console.error('Ошибка загрузки моих объявлений:', error);
+            return of([]);
+            })
+        ).subscribe();
+    }
 
-  private prepareImageUrls(adverts: AdvertInterface[]): void {
-    this.imageUrls = {};
-    adverts.forEach(advert => {
-      if (advert.imagesIds?.length > 0) {
-        this.imageUrls[advert.id] = this.imageService.getImgUrlById(advert.imagesIds[0]);
-      } else {
-        this.imageUrls[advert.id] = '';
-      }
-    });
-  }
+    private prepareImageUrls(adverts: AdvertInterface[]): void {
+        this.imageUrls = {};
+        adverts.forEach(advert => {
+        if (advert.imagesIds?.length > 0) {
+            this.imageUrls[advert.id] = this.imageService.getImgUrlById(advert.imagesIds[0]);
+        } else {
+            this.imageUrls[advert.id] = '';
+        }
+        });
+    }
 }

@@ -8,35 +8,35 @@ import { BehaviorSubject, filter } from 'rxjs';
 })
 export class BreadcrumbService {
 
-  private router = inject(Router);
-  private activatedRoute = inject(ActivatedRoute);
-  
-  private breadcrumbsSubject = new BehaviorSubject<MenuItem[]>([]);
-  breadcrumbs$ = this.breadcrumbsSubject.asObservable();
-
-  constructor() {
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
-        const breadcrumbs = this.getSimpleBreadcrumbs();
-        this.breadcrumbsSubject.next(breadcrumbs);
-      });
-  }
-
-  private getSimpleBreadcrumbs(): MenuItem[] {
-    const breadcrumbs: MenuItem[] = [{ label: 'Главная' }];
+    private router = inject(Router);
+    private activatedRoute = inject(ActivatedRoute);
     
-    
-    let currentRoute = this.activatedRoute;
-    while (currentRoute.firstChild) {
-      currentRoute = currentRoute.firstChild;
+    private breadcrumbsSubject = new BehaviorSubject<MenuItem[]>([]);
+    breadcrumbs$ = this.breadcrumbsSubject.asObservable();
+
+    constructor() {
+        this.router.events
+        .pipe(filter(event => event instanceof NavigationEnd))
+        .subscribe(() => {
+            const breadcrumbs = this.getSimpleBreadcrumbs();
+            this.breadcrumbsSubject.next(breadcrumbs);
+        });
     }
 
-    const breadcrumb = currentRoute.snapshot.data['breadcrumb'];
-    if (breadcrumb && breadcrumb !== 'Главная') {
-      breadcrumbs.push({ label: breadcrumb });
-    }
+    private getSimpleBreadcrumbs(): MenuItem[] {
+        const breadcrumbs: MenuItem[] = [{ label: 'Главная' }];
+        
+        
+        let currentRoute = this.activatedRoute;
+        while (currentRoute.firstChild) {
+        currentRoute = currentRoute.firstChild;
+        }
 
-    return breadcrumbs;
-  }
+        const breadcrumb = currentRoute.snapshot.data['breadcrumb'];
+        if (breadcrumb && breadcrumb !== 'Главная') {
+        breadcrumbs.push({ label: breadcrumb });
+        }
+
+        return breadcrumbs;
+    }
 }

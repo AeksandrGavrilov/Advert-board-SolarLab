@@ -7,17 +7,17 @@ import { BreadcrumpsComponent } from '../../../shared/components/breadcrump/brea
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-  selector: 'app-layout',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    HeaderComponent,
-    SearchMenuComponent,
-    BreadcrumpsComponent,
-    ToastModule
-  ],
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+    selector: 'app-layout',
+    standalone: true,
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        HeaderComponent,
+        SearchMenuComponent,
+        BreadcrumpsComponent,
+        ToastModule
+    ],
+    templateUrl: './layout.component.html',
+    styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent { }

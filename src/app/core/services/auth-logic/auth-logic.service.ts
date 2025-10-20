@@ -11,37 +11,37 @@ import { AuthService } from '../auth-service-api/auth.service';
 })
 export class AuthLogicService {
 
-  private router = inject(Router)
-  private authApiService = inject(AuthService)
+    private router = inject(Router)
+    private authApiService = inject(AuthService)
 
-  private isAuthenticatedSubject  = new BehaviorSubject<boolean> (this.checkToken());
-  private currentUserSubject = new BehaviorSubject<UserInterface | null>(this.getUserFromStorage())
+    private isAuthenticatedSubject  = new BehaviorSubject<boolean> (this.checkToken());
+    private currentUserSubject = new BehaviorSubject<UserInterface | null>(this.getUserFromStorage())
 
-  public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
-  public currentUser$ = this.currentUserSubject.asObservable();
+    public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+    public currentUser$ = this.currentUserSubject.asObservable();
 
-  public login(authData: AuthificationDataInterface): Observable<string> {  
-    return this.authApiService.login(authData)
-    .pipe(
-      tap((token: string) => {
-        const cleanToken = token.startsWith('"') && token.endsWith('"') 
-            ? token.slice(1, -1) 
-            : token;
-    
-        localStorage.setItem('authToken', cleanToken)
-        localStorage.setItem('userLogin', authData.login);
+    public login(authData: AuthificationDataInterface): Observable<string> {  
+        return this.authApiService.login(authData)
+        .pipe(
+        tap((token: string) => {
+            const cleanToken = token.startsWith('"') && token.endsWith('"') 
+                ? token.slice(1, -1) 
+                : token;
+        
+            localStorage.setItem('authToken', cleanToken)
+            localStorage.setItem('userLogin', authData.login);
 
-        const savedToken = localStorage.getItem('authToken');
-        console.log('токен сохранен в local storage, save token =',savedToken);
+            const savedToken = localStorage.getItem('authToken');
+            console.log('токен сохранен в local storage, save token =',savedToken);
 
-        this.isAuthenticatedSubject.next(true);
-        this.currentUserSubject.next({
-          id: authData.login,
-          name: authData.login,
-          login: authData.login
+            this.isAuthenticatedSubject.next(true);
+            this.currentUserSubject.next({
+            id: authData.login,
+            name: authData.login,
+            login: authData.login
+            })
         })
-      })
-    )
+        )
   }
 
   public register(registerData: RegisterNewUserInterface): Observable<string> {
@@ -70,30 +70,30 @@ export class AuthLogicService {
   }
   
   public logout(): void {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userLogin');
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userLogin');
 
-    this.isAuthenticatedSubject.next(false);
-    this.currentUserSubject.next(null);
+        this.isAuthenticatedSubject.next(false);
+        this.currentUserSubject.next(null);
 
-    this.router.navigate(['/']);
-  }
+        this.router.navigate(['/']);
+    }
 
-  public isAuthenticated(): boolean {
-    return this.isAuthenticatedSubject.value
-  }
+    public isAuthenticated(): boolean {
+        return this.isAuthenticatedSubject.value
+    }
 
-  private checkToken(): boolean {
-    return !!localStorage.getItem('authToken');
-  }
+    private checkToken(): boolean {
+        return !!localStorage.getItem('authToken');
+    }
 
-  private getUserFromStorage(): UserInterface | null {
-    const login = localStorage.getItem('userLogin');
-    return login ? {
-      id:login,
-      name:login,
-      login:login
-    } : null;
-  }
+    private getUserFromStorage(): UserInterface | null {
+        const login = localStorage.getItem('userLogin');
+        return login ? {
+        id:login,
+        name:login,
+        login:login
+        } : null;
+    }
 
 }

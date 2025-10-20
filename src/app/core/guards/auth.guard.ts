@@ -6,20 +6,20 @@ import { DialogService } from 'primeng/dynamicdialog';
 
 export const authGuard: CanActivateFn = (route, state) => {
   
-  const authService = inject(AuthLogicService);
+    const authService = inject(AuthLogicService);
 
-  console.log('AuthGuard проверяет доступ к:', state.url)
+    console.log('AuthGuard проверяет доступ к:', state.url)
 
-  return authService.isAuthenticated$.pipe(
-    take(1),
-    map(isAuthentacated => {
-      
-      if (isAuthentacated) {
-        return true
-      } else {
-        console.log('AuthGuard:Доступ запрещен')
-        return false;
-      }
-    })
-  );
+    return authService.isAuthenticated$.pipe(
+        take(1),
+        map(isAuthentacated => {
+        
+        if (isAuthentacated) {
+            return true
+        } else {
+            console.log('AuthGuard:Доступ запрещен')
+            return false;
+        }
+        })
+    );
 };

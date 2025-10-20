@@ -12,20 +12,20 @@ import Aura from '@primeng/themes/aura';
 import { myPreset } from '../styles/my-preset';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideRouter(routes),
-    provideHttpClient(
-      withInterceptors([authInterceptor])
-    ),
-    provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideAnimationsAsync(),
-    DialogService,
-    importProvidersFrom(DialogModule),
-    MessageService,
-    providePrimeNG({
-      theme: {
-        preset: myPreset
-      }
-    })
-  ]
+    providers: [
+        provideRouter(routes),
+        provideHttpClient(
+        withInterceptors([authInterceptor])
+        ),
+        provideZoneChangeDetection({ eventCoalescing: true }), 
+        provideAnimationsAsync(),
+        DialogService,
+        importProvidersFrom(DialogModule),
+        MessageService,
+        providePrimeNG({
+        theme: {
+            preset: myPreset
+        }
+        })
+    ]
 };

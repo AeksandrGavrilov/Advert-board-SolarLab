@@ -8,11 +8,10 @@ import { environment } from '../../../core/environment/environment';
   providedIn: 'root'
 })
 export class ImageService {
-  private readonly API_URL = environment.API_URL;
-  private http = inject(HttpClient);
+    private readonly API_URL = environment.API_URL;
+    private http = inject(HttpClient);
 
-  getImgUrlById(imageId: string): string {
-  return `${this.API_URL}/Images/${imageId}`
-  };
-
+    getImgUrlById(imageId: string): string {
+    return `${this.API_URL}/Images/${imageId}`
+    };
 }

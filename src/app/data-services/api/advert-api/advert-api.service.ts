@@ -11,23 +11,23 @@ import { environment } from '../../../core/environment/environment';
 })
 export class AdvertApiService {
 
-  private API_URL = environment.API_URL;
-  private http = inject(HttpClient);
- 
-  searchAdverts (request:SearchAdvertsRequest): Observable<AdvertInterface[]> {
-    return this.http.post<AdvertInterface[]>(
-      `${this.API_URL}/Advert/search`,
-      request
-    )
-  }
-  createAdvert(advertFormData: FormData): Observable<any> {
-    return this.http.post<any>(
-      `${this.API_URL}/Advert`,
-      advertFormData
-  );
-  };
+    private API_URL = environment.API_URL;
+    private http = inject(HttpClient);
+    
+    searchAdverts (request:SearchAdvertsRequest): Observable<AdvertInterface[]> {
+        return this.http.post<AdvertInterface[]>(
+        `${this.API_URL}/Advert/search`,
+        request
+        )
+    }
+    createAdvert(advertFormData: FormData): Observable<any> {
+        return this.http.post<any>(
+        `${this.API_URL}/Advert`,
+        advertFormData
+    );
+    };
 
-  getAdvertById(id: string): Observable<AdvertDetailsInterface> {
-    return this.http.get<AdvertDetailsInterface>(`${this.API_URL}/Advert/${id}`)
-  }
+    getAdvertById(id: string): Observable<AdvertDetailsInterface> {
+        return this.http.get<AdvertDetailsInterface>(`${this.API_URL}/Advert/${id}`)
+    }
 }

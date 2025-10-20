@@ -4,23 +4,23 @@ import { MenuItem } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { CommonModule } from '@angular/common';
 @Component({
-  selector: 'app-breadcrumps',
-  imports: [
-    CommonModule,
-    BreadcrumbModule
-  ],
-  templateUrl: './breadcrump.component.html',
-  styleUrl: './breadcrump.component.scss'
+    selector: 'app-breadcrumps',
+    imports: [
+        CommonModule,
+        BreadcrumbModule
+    ],
+    templateUrl: './breadcrump.component.html',
+    styleUrl: './breadcrump.component.scss'
 })
 export class BreadcrumpsComponent {
-  private breadcrumbService = inject(BreadcrumbService);
+    private breadcrumbService = inject(BreadcrumbService);
 
-  breadcrumbs: MenuItem[] = [];
-  home: MenuItem = { icon: 'pi pi-home' }; 
+    breadcrumbs: MenuItem[] = [];
+    home: MenuItem = { icon: 'pi pi-home' }; 
 
-  ngOnInit(): void {
-    this.breadcrumbService.breadcrumbs$.subscribe(breadcrumbs => {
-      this.breadcrumbs = breadcrumbs;
-    });
-  }
+    ngOnInit(): void {
+        this.breadcrumbService.breadcrumbs$.subscribe(breadcrumbs => {
+        this.breadcrumbs = breadcrumbs;
+        });
+    }
 }

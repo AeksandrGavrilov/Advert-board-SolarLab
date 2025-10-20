@@ -7,19 +7,19 @@ import { TransformDatePipe } from '../../pipes/transform-date.pipe';
 
 
 @Component({
-  selector: 'app-card',
-  imports: [
-    CommonModule, 
-    RouterLink,
-    RouterModule,
-    ImagePipe,
-    TransformDatePipe,
-  ],
-  templateUrl: './card.component.html',
-  styleUrl: './card.component.scss',
-  standalone: true,
+    selector: 'app-card',
+    imports: [
+        CommonModule, 
+        RouterLink,
+        RouterModule,
+        ImagePipe,
+        TransformDatePipe,
+    ],
+    templateUrl: './card.component.html',
+    styleUrl: './card.component.scss',
+    standalone: true,
 })
 export class CardComponent {
-  @Input() advert!: AdvertInterface;
-  @Input() imageUrl!: string;
+    @Input() advert!: AdvertInterface;
+    @Input() imageUrl!: string;
 }
