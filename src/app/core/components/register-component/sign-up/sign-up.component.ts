@@ -52,10 +52,10 @@ export class SignUpComponent {
       this.errorMessage = '';
 
       this.authService.register(this.registerData).pipe(
-        tap((userId) => {
+        tap((id) => {
           this.loading = false;
           this.messageToastService.add({
-            severity: 'seccess',
+            severity: 'success',
             summary: 'Успех!',
             detail: 'Регистрация успешна!'
           });

@@ -15,11 +15,4 @@ export class ImageService {
   return `${this.API_URL}/Images/${imageId}`
   };
 
-  getImgById(imageId: string): Observable<Blob> {
-    return this.http.get(
-      `${this.API_URL}/Images/${imageId}` ,
-      {responseType: "blob"}
-      )
-    };
-  
 }

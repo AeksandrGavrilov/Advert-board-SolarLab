@@ -5,11 +5,9 @@ import { ButtonModule } from 'primeng/button';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { CategoryLogicService } from '../../../data-services/logic/Category-logic/category-logic.service'; 
 import { CategoryInterface } from '../../../interfaces/category.interface';
-import { AdvertService } from '../../../data-services/logic/advert-logic/advert.service';
 import { MenuItem } from 'primeng/api';
 import { catchError, of, tap } from 'rxjs';
-import { SearchAdvertsRequest } from '../../../interfaces/adverts-request.interface';
-import { AdvertApiService } from '../../../data-services/api/advert-api/advert-api.service';
+
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -28,8 +26,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class SearchMenuComponent {
   private categoryService = inject(CategoryLogicService);
-  private advertService = inject(AdvertService);
-  private advertApiService = inject(AdvertApiService);
   private router = inject(Router)
 
   searchText: string ='';

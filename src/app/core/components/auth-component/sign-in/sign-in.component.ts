@@ -36,10 +36,8 @@ export class SignInComponent {
 
   ngOnInit(){
     const redirectUrl = this.dialogConfig.data?.redirectUrl;
-    if (redirectUrl) {
-      console.log('URL для редиректа', redirectUrl)
-    }
   }
+  
   login(){
     this.loading = true;
     this.errorMessage = '';
@@ -56,12 +54,12 @@ export class SignInComponent {
             success: true,
             redirectUrl: this.dialogConfig.data?.redirectUrl
           });
-          catchError( (error) => {
+      }),
+      catchError( (error) => {
             this.loading = false;
             this.errorMessage = 'Ошибка авторизации!';
             return of(null)
           })
-      })
     ).subscribe()
   };
 

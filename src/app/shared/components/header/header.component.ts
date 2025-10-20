@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
        command: () => this.logout()
     }
   ];
-customButtonLoginToken: Object|undefined;
+
   ngOnInit() {
     this.authService.currentUser$.subscribe( user => {
       this.currentUserName = user?.name || 'Пользователь'

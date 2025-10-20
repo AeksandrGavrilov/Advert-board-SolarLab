@@ -29,7 +29,6 @@ export class AuthLogicService {
             : token;
     
         localStorage.setItem('authToken', cleanToken)
-        
         localStorage.setItem('userLogin', authData.login);
 
         const savedToken = localStorage.getItem('authToken');
@@ -53,6 +52,11 @@ export class AuthLogicService {
           console.log('Пользователь зарегистрирован с идентификатором Id:', userId);
           return this.login({login: registerData.login, password: registerData.password}).pipe(
             tap(() => {
+              this.currentUserSubject.next({
+                id: userId,              
+                name: registerData.name, 
+                login: registerData.login
+              }),
               console.log('Автоматическая авторизация после регистрации завершена успешно!');
             }),
             catchError(error => {
@@ -77,10 +81,6 @@ export class AuthLogicService {
 
   public isAuthenticated(): boolean {
     return this.isAuthenticatedSubject.value
-  }
-
-  public getCurrentUser(): UserInterface | null {
-    return this.currentUserSubject.value
   }
 
   private checkToken(): boolean {

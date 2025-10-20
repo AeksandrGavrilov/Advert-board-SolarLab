@@ -5,6 +5,7 @@ import { catchError, of, tap } from 'rxjs';
 import {  ButtonModule } from "primeng/button";
 import { CardGridComponent } from '../../../shared/components/card-grid/card-grid.component';
 import { ImageService } from '../../../data-services/api/img-api/image.service';
+
 @Component({
   selector: 'app-home',
   imports: [
@@ -15,11 +16,11 @@ import { ImageService } from '../../../data-services/api/img-api/image.service';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
+
   private advertService = inject(AdvertService);
   private imageService = inject(ImageService);
 
   adverts: AdvertInterface[] = [];
-
   imageUrls: Record<string, string> = {}
 
   ngOnInit(): void {
@@ -30,10 +31,8 @@ export class HomeComponent implements OnInit {
     this.advertService.searchAdvert({})
       .pipe(
         tap( adverts => {
-          console.log('Категория выбрана, выполняется переход....')
           this.adverts = adverts;
           this.loadImageUrls(adverts)
-          console.log('ImageUrls подготовленны', this.imageUrls)
         }),
         catchError( error => {
           console.error('Ошибка загрузки объявлений!', error)

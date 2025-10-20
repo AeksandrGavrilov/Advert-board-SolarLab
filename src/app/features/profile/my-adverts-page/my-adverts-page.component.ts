@@ -41,8 +41,7 @@ export class MyAdvertsPageComponent implements OnInit{
           console.error('Ошибка загрузки моих объявлений:', error);
           return of([]);
         })
-      )
-      .subscribe();
+      ).subscribe();
   }
 
   private prepareImageUrls(adverts: AdvertInterface[]): void {
