@@ -5,6 +5,7 @@
                     <div class="advert-details-block-left-label">
                         <h2> {{advert?.name}}</h2>
                     </div>
+
                 <div class="advert-details-gallery">
                     <p-galleria
                         [value]="images"
@@ -12,14 +13,12 @@
                         [circular]="true"
                         [showItemNavigators]="true"
                         [showThumbnails]="images.length > 1">
-                        
                         <ng-template pTemplate="item" let-item>
                             <img [src]="item | imagePipe"
                             [alt]="advert?.name"
                             class="image"
                             style="width: 856px; height: 512px; object-fit: cover;" />
                         </ng-template>
-
                         <ng-template pTemplate="thumbnail" let-item>
                             <img
                             [src]="item | imagePipe"

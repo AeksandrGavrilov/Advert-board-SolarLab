@@ -54,7 +54,7 @@ export class SearchMenuComponent {
         ).subscribe()
     };
 
-    private buildMenuItems(categories: CategoryInterface[]): MenuItem[] {
+    buildMenuItems(categories: CategoryInterface[]): MenuItem[] {
         return categories.map(category => {
         const menuItem: MenuItem = {
             label: category.name,
@@ -70,7 +70,7 @@ export class SearchMenuComponent {
         return menuItem;
         });
     };
-    private onCategorySelect(categoryId: string) {
+    onCategorySelect(categoryId: string) {
         console.log('Выбрана категория', categoryId);
         this.router.navigate(['/search'], {
         queryParams: { category: categoryId}

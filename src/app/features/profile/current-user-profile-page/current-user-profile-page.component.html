@@ -11,14 +11,6 @@
                 <h3>Права пользователя: {{ currentUser.role }}</h3>
                 <h3>Зарегистрирован: {{ currentUser.registeredTime | transformDatePipe }}</h3>
                 </div>
-                
-                <div class="user-adverts">
-                    <h2>Мои объявления ({{ currentUser.adverts.length }})</h2>
-                    <app-card-grid 
-                    [adverts]="currentUser.adverts"
-                    [imageUrls]="imageUrls">
-                    </app-card-grid>
-                </div>
             </div>
             }
     </div>

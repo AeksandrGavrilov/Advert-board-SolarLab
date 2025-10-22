@@ -18,8 +18,7 @@ export class AuthService {
     public login(authData: AuthificationDataInterface): Observable<string> {  
         return this.http.post<string>(
         `${this.API_URL}/Auth/Login`,
-        authData,
-        {responseType: "text" as "json"}
+        authData
         )
   }         
 
@@ -28,7 +27,6 @@ export class AuthService {
         `${this.API_URL}/Auth/Register`,
         registerData,
         {
-            responseType: "text" as "json",
             headers: {'Content-Type': 'application/json'}
         }
         )
