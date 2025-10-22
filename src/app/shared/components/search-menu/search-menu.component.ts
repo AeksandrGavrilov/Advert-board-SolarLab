@@ -79,6 +79,7 @@ export class SearchMenuComponent {
     onTextSearch(): void {
         this.router.navigate(['/search'], {
         queryParams: {search: this.searchText}
-        })
+        });
+        this.searchText = '';
     };
 }

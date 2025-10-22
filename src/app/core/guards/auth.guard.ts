@@ -2,7 +2,6 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthLogicService } from '../services/auth-logic/auth-logic.service';
 import { map, take } from 'rxjs';
-import { DialogService } from 'primeng/dynamicdialog';
 
 export const authGuard: CanActivateFn = (route, state) => {
   
